@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "WordMemo",
+    "slug": "wordmemo",
+    "version": "1.0.0",
+    "scheme": "wordmemo",
+    "plugins": [["expo-notifications", { "color": "#294C3C" }]],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.example.wordmemo",
+      "infoPlist": { "ITSAppUsesNonExemptEncryption": false },
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.example.wordmemo",
+      "adaptiveIcon": {
+        "backgroundColor": "#294C3C",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

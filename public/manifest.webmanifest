@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "WordMemo · Remember the Word",
+  "short_name": "WordMemo",
+  "description": "The full Bible, topic collections, and a gentle daily Scripture memory practice.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F6F3EC",
+  "theme_color": "#294C3C",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

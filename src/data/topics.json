@@ -1,0 +1,697 @@
+[
+  {
+    "id": "perseverance",
+    "name": "Perseverance",
+    "group": "In difficult seasons",
+    "icon": "sunrise",
+    "subtitle": "Keep going in faith",
+    "aliases": [
+      "endurance",
+      "patience",
+      "trials",
+      "persistence",
+      "perseverence",
+      "preseverance"
+    ],
+    "counts": {
+      "curated": 34,
+      "suggested": 166
+    }
+  },
+  {
+    "id": "peace",
+    "name": "Peace",
+    "group": "In difficult seasons",
+    "icon": "wind",
+    "subtitle": "Rest in His presence",
+    "aliases": [
+      "rest",
+      "calm",
+      "reconciliation"
+    ],
+    "counts": {
+      "curated": 22,
+      "suggested": 389
+    }
+  },
+  {
+    "id": "hope",
+    "name": "Hope",
+    "group": "In difficult seasons",
+    "icon": "sun",
+    "subtitle": "Hold on to His promises",
+    "aliases": [
+      "expectation",
+      "future",
+      "promises"
+    ],
+    "counts": {
+      "curated": 55,
+      "suggested": 132
+    }
+  },
+  {
+    "id": "faith",
+    "name": "Faith & trust",
+    "group": "Walking with God",
+    "icon": "anchor",
+    "subtitle": "Learn to trust Him",
+    "aliases": [
+      "belief",
+      "believe",
+      "trust",
+      "faithfulness"
+    ],
+    "counts": {
+      "curated": 83,
+      "suggested": 682
+    }
+  },
+  {
+    "id": "love",
+    "name": "Love & compassion",
+    "group": "Life together",
+    "icon": "heart",
+    "subtitle": "Love as Christ loves",
+    "aliases": [
+      "kindness",
+      "compassion",
+      "loving"
+    ],
+    "counts": {
+      "curated": 82,
+      "suggested": 661
+    }
+  },
+  {
+    "id": "wisdom",
+    "name": "Wisdom",
+    "group": "Walking with God",
+    "icon": "compass",
+    "subtitle": "Let His Word guide you",
+    "aliases": [
+      "discernment",
+      "understanding",
+      "wise"
+    ],
+    "counts": {
+      "curated": 45,
+      "suggested": 524
+    }
+  },
+  {
+    "id": "prayer",
+    "name": "Prayer",
+    "group": "Walking with God",
+    "icon": "message-circle",
+    "subtitle": "Turn your heart toward God",
+    "aliases": [
+      "pray",
+      "intercession",
+      "petition"
+    ],
+    "counts": {
+      "curated": 55,
+      "suggested": 331
+    }
+  },
+  {
+    "id": "forgiveness",
+    "name": "Forgiveness",
+    "group": "Life together",
+    "icon": "refresh-cw",
+    "subtitle": "Receive mercy and extend it",
+    "aliases": [
+      "forgive",
+      "pardon",
+      "forgiven"
+    ],
+    "counts": {
+      "curated": 62,
+      "suggested": 126
+    }
+  },
+  {
+    "id": "grace",
+    "name": "Grace & mercy",
+    "group": "Walking with God",
+    "icon": "gift",
+    "subtitle": "Receive God’s undeserved gift",
+    "aliases": [
+      "mercy",
+      "favor",
+      "gift"
+    ],
+    "counts": {
+      "curated": 57,
+      "suggested": 458
+    }
+  },
+  {
+    "id": "salvation",
+    "name": "Salvation",
+    "group": "The story of Scripture",
+    "icon": "plus-circle",
+    "subtitle": "The good news of Jesus Christ",
+    "aliases": [
+      "saved",
+      "redemption",
+      "gospel",
+      "redeemed"
+    ],
+    "counts": {
+      "curated": 62,
+      "suggested": 506
+    }
+  },
+  {
+    "id": "repentance",
+    "name": "Repentance",
+    "group": "Walking with God",
+    "icon": "corner-up-left",
+    "subtitle": "Return to God with an open heart",
+    "aliases": [
+      "repent",
+      "confession",
+      "turning back"
+    ],
+    "counts": {
+      "curated": 46,
+      "suggested": 113
+    }
+  },
+  {
+    "id": "humility",
+    "name": "Humility",
+    "group": "Walking with God",
+    "icon": "feather",
+    "subtitle": "Walk gently before God",
+    "aliases": [
+      "humble",
+      "meekness",
+      "pride"
+    ],
+    "counts": {
+      "curated": 37,
+      "suggested": 167
+    }
+  },
+  {
+    "id": "gratitude",
+    "name": "Gratitude",
+    "group": "Walking with God",
+    "icon": "sun",
+    "subtitle": "Notice and give thanks",
+    "aliases": [
+      "thanksgiving",
+      "thankful",
+      "thanks"
+    ],
+    "counts": {
+      "curated": 40,
+      "suggested": 153
+    }
+  },
+  {
+    "id": "joy",
+    "name": "Joy",
+    "group": "Walking with God",
+    "icon": "smile",
+    "subtitle": "Rejoice in the Lord",
+    "aliases": [
+      "rejoice",
+      "gladness",
+      "delight"
+    ],
+    "counts": {
+      "curated": 34,
+      "suggested": 414
+    }
+  },
+  {
+    "id": "courage",
+    "name": "Courage",
+    "group": "In difficult seasons",
+    "icon": "shield",
+    "subtitle": "Take the next faithful step",
+    "aliases": [
+      "bravery",
+      "boldness",
+      "fearless"
+    ],
+    "counts": {
+      "curated": 32,
+      "suggested": 160
+    }
+  },
+  {
+    "id": "anxiety",
+    "name": "Worry & fear",
+    "group": "In difficult seasons",
+    "icon": "cloud",
+    "subtitle": "Bring your worries to God",
+    "aliases": [
+      "anxiety",
+      "anxious",
+      "worry",
+      "afraid",
+      "stress"
+    ],
+    "counts": {
+      "curated": 42,
+      "suggested": 258
+    }
+  },
+  {
+    "id": "grief",
+    "name": "Grief & loss",
+    "group": "In difficult seasons",
+    "icon": "cloud-rain",
+    "subtitle": "Bring sorrow into His presence",
+    "aliases": [
+      "mourning",
+      "sadness",
+      "sorrow",
+      "loss"
+    ],
+    "counts": {
+      "curated": 55,
+      "suggested": 416
+    }
+  },
+  {
+    "id": "comfort",
+    "name": "Comfort & refuge",
+    "group": "In difficult seasons",
+    "icon": "home",
+    "subtitle": "God is near in trouble",
+    "aliases": [
+      "consolation",
+      "refuge",
+      "shelter",
+      "protection"
+    ],
+    "counts": {
+      "curated": 68,
+      "suggested": 208
+    }
+  },
+  {
+    "id": "strength",
+    "name": "Strength in weakness",
+    "group": "In difficult seasons",
+    "icon": "zap",
+    "subtitle": "Depend on His strength",
+    "aliases": [
+      "strength",
+      "weakness",
+      "renewal"
+    ],
+    "counts": {
+      "curated": 33,
+      "suggested": 271
+    }
+  },
+  {
+    "id": "guidance",
+    "name": "Guidance",
+    "group": "Walking with God",
+    "icon": "navigation",
+    "subtitle": "Seek God’s direction",
+    "aliases": [
+      "direction",
+      "decisions",
+      "lead",
+      "path"
+    ],
+    "counts": {
+      "curated": 21,
+      "suggested": 49
+    }
+  },
+  {
+    "id": "obedience",
+    "name": "Obedience",
+    "group": "Walking with God",
+    "icon": "check-circle",
+    "subtitle": "Put the Word into practice",
+    "aliases": [
+      "obey",
+      "commandments",
+      "doing"
+    ],
+    "counts": {
+      "curated": 40,
+      "suggested": 143
+    }
+  },
+  {
+    "id": "holiness",
+    "name": "Holiness",
+    "group": "Walking with God",
+    "icon": "star",
+    "subtitle": "Be set apart for God",
+    "aliases": [
+      "purity",
+      "sanctification",
+      "holy"
+    ],
+    "counts": {
+      "curated": 26,
+      "suggested": 705
+    }
+  },
+  {
+    "id": "justice",
+    "name": "Justice",
+    "group": "Life together",
+    "icon": "columns",
+    "subtitle": "Act justly and defend the vulnerable",
+    "aliases": [
+      "fairness",
+      "oppression",
+      "righteousness"
+    ],
+    "counts": {
+      "curated": 37,
+      "suggested": 317
+    }
+  },
+  {
+    "id": "generosity",
+    "name": "Generosity",
+    "group": "Life together",
+    "icon": "gift",
+    "subtitle": "Share what you have received",
+    "aliases": [
+      "giving",
+      "charity",
+      "poor",
+      "hospitality"
+    ],
+    "counts": {
+      "curated": 32,
+      "suggested": 14
+    }
+  },
+  {
+    "id": "service",
+    "name": "Service",
+    "group": "Life together",
+    "icon": "tool",
+    "subtitle": "Serve with the love of Christ",
+    "aliases": [
+      "serving",
+      "helping",
+      "servant"
+    ],
+    "counts": {
+      "curated": 64,
+      "suggested": 1356
+    }
+  },
+  {
+    "id": "unity",
+    "name": "Unity & community",
+    "group": "Life together",
+    "icon": "users",
+    "subtitle": "Build one another up",
+    "aliases": [
+      "church",
+      "fellowship",
+      "community",
+      "together"
+    ],
+    "counts": {
+      "curated": 58,
+      "suggested": 342
+    }
+  },
+  {
+    "id": "family",
+    "name": "Family",
+    "group": "Life together",
+    "icon": "home",
+    "subtitle": "Love faithfully at home",
+    "aliases": [
+      "parents",
+      "children",
+      "marriage",
+      "household"
+    ],
+    "counts": {
+      "curated": 53,
+      "suggested": 631
+    }
+  },
+  {
+    "id": "friendship",
+    "name": "Friendship",
+    "group": "Life together",
+    "icon": "user-plus",
+    "subtitle": "Walk faithfully with others",
+    "aliases": [
+      "friends",
+      "companionship",
+      "loyalty"
+    ],
+    "counts": {
+      "curated": 21,
+      "suggested": 137
+    }
+  },
+  {
+    "id": "work",
+    "name": "Work & diligence",
+    "group": "Life together",
+    "icon": "briefcase",
+    "subtitle": "Work faithfully in daily life",
+    "aliases": [
+      "diligence",
+      "work",
+      "labor",
+      "responsibility"
+    ],
+    "counts": {
+      "curated": 27,
+      "suggested": 909
+    }
+  },
+  {
+    "id": "speech",
+    "name": "Words & truth",
+    "group": "Life together",
+    "icon": "message-square",
+    "subtitle": "Speak with truth and grace",
+    "aliases": [
+      "speech",
+      "tongue",
+      "honesty",
+      "gossip",
+      "lying"
+    ],
+    "counts": {
+      "curated": 40,
+      "suggested": 180
+    }
+  },
+  {
+    "id": "temptation",
+    "name": "Temptation & self-control",
+    "group": "Walking with God",
+    "icon": "shield",
+    "subtitle": "Choose what leads toward life",
+    "aliases": [
+      "temptation",
+      "self control",
+      "discipline",
+      "resist"
+    ],
+    "counts": {
+      "curated": 38,
+      "suggested": 67
+    }
+  },
+  {
+    "id": "worship",
+    "name": "Worship & praise",
+    "group": "Walking with God",
+    "icon": "music",
+    "subtitle": "Give glory to God",
+    "aliases": [
+      "praise",
+      "adoration",
+      "singing",
+      "psalms"
+    ],
+    "counts": {
+      "curated": 37,
+      "suggested": 595
+    }
+  },
+  {
+    "id": "creation",
+    "name": "Creation",
+    "group": "The story of Scripture",
+    "icon": "globe",
+    "subtitle": "God, the maker of all things",
+    "aliases": [
+      "creator",
+      "nature",
+      "beginning",
+      "heavens"
+    ],
+    "counts": {
+      "curated": 90,
+      "suggested": 134
+    }
+  },
+  {
+    "id": "covenant",
+    "name": "Covenant & promise",
+    "group": "The story of Scripture",
+    "icon": "link",
+    "subtitle": "God’s faithfulness through history",
+    "aliases": [
+      "promise",
+      "covenants",
+      "faithfulness"
+    ],
+    "counts": {
+      "curated": 59,
+      "suggested": 407
+    }
+  },
+  {
+    "id": "spirit",
+    "name": "The Holy Spirit",
+    "group": "The story of Scripture",
+    "icon": "wind",
+    "subtitle": "Life led by the Spirit",
+    "aliases": [
+      "holy spirit",
+      "spirit of god",
+      "spiritual gifts"
+    ],
+    "counts": {
+      "curated": 82,
+      "suggested": 107
+    }
+  },
+  {
+    "id": "resurrection",
+    "name": "Resurrection",
+    "group": "The story of Scripture",
+    "icon": "sunrise",
+    "subtitle": "Christ is risen",
+    "aliases": [
+      "risen",
+      "raised from the dead",
+      "resurrection"
+    ],
+    "counts": {
+      "curated": 144,
+      "suggested": 83
+    }
+  },
+  {
+    "id": "eternal-life",
+    "name": "Eternal life",
+    "group": "The story of Scripture",
+    "icon": "sunrise",
+    "subtitle": "Life with God beyond today",
+    "aliases": [
+      "everlasting",
+      "heaven",
+      "eternity"
+    ],
+    "counts": {
+      "curated": 41,
+      "suggested": 39
+    }
+  },
+  {
+    "id": "kingdom",
+    "name": "The kingdom of God",
+    "group": "The story of Scripture",
+    "icon": "sun",
+    "subtitle": "Seek His kingdom first",
+    "aliases": [
+      "kingdom of heaven",
+      "kingdom",
+      "reign"
+    ],
+    "counts": {
+      "curated": 90,
+      "suggested": 84
+    }
+  },
+  {
+    "id": "leadership",
+    "name": "Leadership",
+    "group": "Life together",
+    "icon": "users",
+    "subtitle": "Lead by serving faithfully",
+    "aliases": [
+      "shepherd",
+      "elders",
+      "leaders",
+      "stewardship"
+    ],
+    "counts": {
+      "curated": 68,
+      "suggested": 338
+    }
+  },
+  {
+    "id": "money",
+    "name": "Money & contentment",
+    "group": "Life together",
+    "icon": "credit-card",
+    "subtitle": "Keep possessions in perspective",
+    "aliases": [
+      "wealth",
+      "money",
+      "contentment",
+      "riches"
+    ],
+    "counts": {
+      "curated": 42,
+      "suggested": 353
+    }
+  },
+  {
+    "id": "scripture",
+    "name": "God’s Word",
+    "group": "Walking with God",
+    "icon": "book-open",
+    "subtitle": "Keep Scripture in your heart",
+    "aliases": [
+      "bible",
+      "scripture",
+      "word of god",
+      "memorization"
+    ],
+    "counts": {
+      "curated": 48,
+      "suggested": 152
+    }
+  },
+  {
+    "id": "mission",
+    "name": "Sharing the good news",
+    "group": "Life together",
+    "icon": "send",
+    "subtitle": "Bear witness with love",
+    "aliases": [
+      "evangelism",
+      "mission",
+      "witness",
+      "discipleship"
+    ],
+    "counts": {
+      "curated": 38,
+      "suggested": 377
+    }
+  }
+]

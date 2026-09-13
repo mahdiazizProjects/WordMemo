@@ -1,0 +1,39 @@
+{
+  "bible": {
+    "sha256": "e7e4357c8d771891cc6993e00c4827955b8c94fe73554141d38cc7bf5cf798b6",
+    "bytes": 4412482,
+    "parts": [
+      "bible.000.b64",
+      "bible.001.b64",
+      "bible.002.b64",
+      "bible.003.b64",
+      "bible.004.b64",
+      "bible.005.b64",
+      "bible.006.b64",
+      "bible.007.b64",
+      "bible.008.b64",
+      "bible.009.b64",
+      "bible.010.b64",
+      "bible.011.b64",
+      "bible.012.b64",
+      "bible.013.b64",
+      "bible.014.b64",
+      "bible.015.b64",
+      "bible.016.b64",
+      "bible.017.b64"
+    ]
+  },
+  "annotations": {
+    "sha256": "9b60931e2023a0d7efb7af559170732c3a15a2e268fc7154b0d429e5b3cb18aa",
+    "bytes": 1874759,
+    "parts": [
+      "annotations.000.b64",
+      "annotations.001.b64",
+      "annotations.002.b64",
+      "annotations.003.b64",
+      "annotations.004.b64",
+      "annotations.005.b64",
+      "annotations.006.b64"
+    ]
+  }
+}

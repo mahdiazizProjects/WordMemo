@@ -1,0 +1,58 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+dist-*/
+release/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+# Local credentials, deployment records, and Python bytecode
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+WordMemo-authorization.json
+WordMemo-backend.json
+WordMemo-deployment-*.json
+WordMemo-cleanup-*.json
+
+# Restored by npm install from checksummed content/packed parts
+/src/data/bible.json
+/src/data/annotations.json
+
+# generated native folders
+/ios
+/android

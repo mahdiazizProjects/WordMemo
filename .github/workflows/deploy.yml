@@ -1,0 +1,100 @@
+name: WordMemo deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wordmemo-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: Check and build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          npm ci
+          python -m pip install -r tests/requirements.txt
+      - name: Check types and app behavior
+        run: |
+          npm run typecheck
+          npm test
+          python -m unittest discover -s tests -p 'test_*.py'
+      - name: Build the release
+        env:
+          CI: '1'
+        run: |
+          npm run package:aws
+          cfn-lint -t backend/template.json -r us-west-2
+          python release/WordMemo-deploy-aws.py --verify-package
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: github.event_name != 'pull_request'
+        with:
+          name: wordmemo-release
+          path: release/WordMemo-deploy-aws.py
+          if-no-files-found: error
+          retention-days: 7
+
+  deploy:
+    name: Publish to AWS
+    needs: verify
+    if: github.repository == 'mahdiazizProjects/WordMemo' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: us-west-2
+      WORDMEMO_AUTOMATION: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Install the AWS SDK
+        run: python -m pip install -r tests/requirements.txt
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: wordmemo-release
+          path: release
+      - name: Get temporary AWS access
+        id: aws
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5
+        with:
+          role-to-assume: arn:aws:iam::912390896286:role/WordMemoGitHub-d3p8fj75zj86rx
+          aws-region: us-west-2
+          allowed-account-ids: '912390896286'
+          role-session-name: WordMemo-${{ github.run_id }}
+          role-duration-seconds: 7200
+          retry-max-attempts: 2
+      - name: Read the previous deployment status
+        run: python scripts/aws-diagnostics.py
+      - name: Deploy and verify the app
+        run: python release/WordMemo-deploy-aws.py --region us-west-2
+      - name: Read failure details
+        if: failure() && steps.aws.outcome == 'success'
+        run: python scripts/aws-diagnostics.py
+      - name: Deployment result
+        if: success()
+        run: echo 'WordMemo is verified at https://production.d3p8fj75zj86rx.amplifyapp.com/' >> "$GITHUB_STEP_SUMMARY"

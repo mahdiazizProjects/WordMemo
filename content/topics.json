@@ -1,0 +1,1303 @@
+[
+  {
+    "id": "perseverance",
+    "name": "Perseverance",
+    "group": "In difficult seasons",
+    "icon": "sunrise",
+    "subtitle": "Keep going in faith",
+    "aliases": [
+      "endurance",
+      "patience",
+      "trials",
+      "persistence",
+      "perseverence",
+      "preseverance"
+    ],
+    "patterns": [
+      "persever\\w*",
+      "endur\\w*",
+      "steadfast\\w*",
+      "patient\\w*",
+      "not be weary",
+      "don.t give up"
+    ],
+    "references": [
+      "GAL 6:9-10",
+      "JAS 1:2-4",
+      "JAS 1:12",
+      "JAS 5:7-11",
+      "ROM 5:3-5",
+      "ROM 12:12",
+      "HEB 10:23-25",
+      "HEB 12:1-3",
+      "2TH 3:13",
+      "1CO 15:58",
+      "PHP 3:12-14",
+      "2CO 4:16-18",
+      "REV 2:10",
+      "ISA 40:28-31"
+    ]
+  },
+  {
+    "id": "peace",
+    "name": "Peace",
+    "group": "In difficult seasons",
+    "icon": "wind",
+    "subtitle": "Rest in His presence",
+    "aliases": [
+      "rest",
+      "calm",
+      "reconciliation"
+    ],
+    "patterns": [
+      "peace\\w*",
+      "quietness",
+      "rest for your souls"
+    ],
+    "references": [
+      "JHN 14:27",
+      "JHN 16:33",
+      "PHP 4:6-9",
+      "ISA 26:3-4",
+      "MAT 11:28-30",
+      "COL 3:15",
+      "ROM 5:1",
+      "ROM 12:18",
+      "ROM 15:13",
+      "2TH 3:16",
+      "PSA 4:8",
+      "ISA 9:6-7",
+      "NUM 6:24-26"
+    ]
+  },
+  {
+    "id": "hope",
+    "name": "Hope",
+    "group": "In difficult seasons",
+    "icon": "sun",
+    "subtitle": "Hold on to His promises",
+    "aliases": [
+      "expectation",
+      "future",
+      "promises"
+    ],
+    "patterns": [
+      "hope\\w*",
+      "expectation"
+    ],
+    "references": [
+      "ROM 15:13",
+      "ROM 8:18-25",
+      "ROM 5:1-5",
+      "HEB 6:17-20",
+      "LAM 3:21-26",
+      "ISA 40:28-31",
+      "PSA 42:5",
+      "PSA 42:11",
+      "PSA 130:5-7",
+      "1PE 1:3-9",
+      "TIT 2:11-14",
+      "1TH 4:13-18",
+      "JER 29:10-14"
+    ]
+  },
+  {
+    "id": "faith",
+    "name": "Faith & trust",
+    "group": "Walking with God",
+    "icon": "anchor",
+    "subtitle": "Learn to trust Him",
+    "aliases": [
+      "belief",
+      "believe",
+      "trust",
+      "faithfulness"
+    ],
+    "patterns": [
+      "faith\\w*",
+      "believ\\w*",
+      "trust\\w*"
+    ],
+    "references": [
+      "HEB 11:1-40",
+      "2CO 5:7",
+      "PRO 3:5-6",
+      "MRK 9:23-24",
+      "ROM 10:8-17",
+      "EPH 2:8-10",
+      "JAS 2:14-26",
+      "MAT 17:20",
+      "LUK 17:5-6",
+      "PSA 56:3-4",
+      "JHN 20:24-29",
+      "HAB 2:4"
+    ]
+  },
+  {
+    "id": "love",
+    "name": "Love & compassion",
+    "group": "Life together",
+    "icon": "heart",
+    "subtitle": "Love as Christ loves",
+    "aliases": [
+      "kindness",
+      "compassion",
+      "loving"
+    ],
+    "patterns": [
+      "lov(?:e|es|ed|ing)",
+      "compassion\\w*",
+      "kindness",
+      "tender hearted"
+    ],
+    "references": [
+      "1CO 13:1-13",
+      "JHN 13:34-35",
+      "JHN 15:9-17",
+      "1JN 4:7-21",
+      "1JN 3:16-18",
+      "MAT 22:34-40",
+      "LUK 10:25-37",
+      "EPH 4:31-32",
+      "COL 3:12-14",
+      "ROM 12:9-21",
+      "1CO 16:14",
+      "MIC 6:8"
+    ]
+  },
+  {
+    "id": "wisdom",
+    "name": "Wisdom",
+    "group": "Walking with God",
+    "icon": "compass",
+    "subtitle": "Let His Word guide you",
+    "aliases": [
+      "discernment",
+      "understanding",
+      "wise"
+    ],
+    "patterns": [
+      "wisdom",
+      "wise\\w*",
+      "discern\\w*",
+      "understanding"
+    ],
+    "references": [
+      "JAS 1:5-8",
+      "JAS 3:13-18",
+      "PRO 2:1-11",
+      "PRO 3:5-7",
+      "PRO 4:5-9",
+      "PRO 9:10",
+      "PRO 15:1",
+      "PRO 16:16",
+      "COL 3:16",
+      "EPH 5:15-17",
+      "PSA 111:10",
+      "1CO 1:18-25"
+    ]
+  },
+  {
+    "id": "prayer",
+    "name": "Prayer",
+    "group": "Walking with God",
+    "icon": "message-circle",
+    "subtitle": "Turn your heart toward God",
+    "aliases": [
+      "pray",
+      "intercession",
+      "petition"
+    ],
+    "patterns": [
+      "pray\\w*",
+      "petition\\w*",
+      "intercess\\w*",
+      "supplication\\w*"
+    ],
+    "references": [
+      "MAT 6:5-15",
+      "LUK 11:1-13",
+      "LUK 18:1-8",
+      "PHP 4:6-7",
+      "1TH 5:16-18",
+      "JAS 5:13-18",
+      "1JN 5:14-15",
+      "JER 33:3",
+      "PSA 145:18-19",
+      "ROM 8:26-27",
+      "EPH 6:18",
+      "1TI 2:1-4"
+    ]
+  },
+  {
+    "id": "forgiveness",
+    "name": "Forgiveness",
+    "group": "Life together",
+    "icon": "refresh-cw",
+    "subtitle": "Receive mercy and extend it",
+    "aliases": [
+      "forgive",
+      "pardon",
+      "forgiven"
+    ],
+    "patterns": [
+      "forgiv\\w*",
+      "forgav\\w*",
+      "pardon\\w*",
+      "remission"
+    ],
+    "references": [
+      "EPH 4:31-32",
+      "COL 3:12-13",
+      "MAT 6:12-15",
+      "MAT 18:21-35",
+      "LUK 17:3-4",
+      "1JN 1:8-9",
+      "PSA 103:8-12",
+      "MIC 7:18-19",
+      "ISA 1:18",
+      "LUK 15:11-32",
+      "PSA 32:1-5"
+    ]
+  },
+  {
+    "id": "grace",
+    "name": "Grace & mercy",
+    "group": "Walking with God",
+    "icon": "gift",
+    "subtitle": "Receive God’s undeserved gift",
+    "aliases": [
+      "mercy",
+      "favor",
+      "gift"
+    ],
+    "patterns": [
+      "grace",
+      "merc(?:y|ies|iful)",
+      "loving kindness\\w*"
+    ],
+    "references": [
+      "EPH 2:1-10",
+      "TIT 3:3-7",
+      "HEB 4:14-16",
+      "2CO 12:7-10",
+      "ROM 3:21-26",
+      "ROM 5:6-11",
+      "ROM 5:15-21",
+      "JHN 1:14-17",
+      "LAM 3:22-23",
+      "PSA 103:8-14",
+      "MIC 7:18-20"
+    ]
+  },
+  {
+    "id": "salvation",
+    "name": "Salvation",
+    "group": "The story of Scripture",
+    "icon": "plus-circle",
+    "subtitle": "The good news of Jesus Christ",
+    "aliases": [
+      "saved",
+      "redemption",
+      "gospel",
+      "redeemed"
+    ],
+    "patterns": [
+      "salvation",
+      "saved",
+      "redeem\\w*",
+      "redemption",
+      "good news",
+      "gospel"
+    ],
+    "references": [
+      "JHN 3:14-21",
+      "ROM 3:21-26",
+      "ROM 5:6-11",
+      "ROM 6:23",
+      "ROM 10:8-13",
+      "EPH 2:1-10",
+      "ACT 4:12",
+      "TIT 3:3-7",
+      "1TI 2:3-6",
+      "2CO 5:17-21",
+      "LUK 19:1-10"
+    ]
+  },
+  {
+    "id": "repentance",
+    "name": "Repentance",
+    "group": "Walking with God",
+    "icon": "corner-up-left",
+    "subtitle": "Return to God with an open heart",
+    "aliases": [
+      "repent",
+      "confession",
+      "turning back"
+    ],
+    "patterns": [
+      "repent\\w*",
+      "contrite",
+      "confess\\w*",
+      "turn from their wicked"
+    ],
+    "references": [
+      "ACT 2:37-39",
+      "ACT 3:19",
+      "1JN 1:8-9",
+      "PSA 51:1-17",
+      "JOL 2:12-13",
+      "ISA 55:6-7",
+      "LUK 15:1-10",
+      "2CO 7:9-10",
+      "PRO 28:13",
+      "LUK 18:9-14"
+    ]
+  },
+  {
+    "id": "humility",
+    "name": "Humility",
+    "group": "Walking with God",
+    "icon": "feather",
+    "subtitle": "Walk gently before God",
+    "aliases": [
+      "humble",
+      "meekness",
+      "pride"
+    ],
+    "patterns": [
+      "humbl\\w*",
+      "humilit\\w*",
+      "meek\\w*",
+      "lowly",
+      "pride",
+      "proud"
+    ],
+    "references": [
+      "PHP 2:1-11",
+      "JAS 4:6-10",
+      "1PE 5:5-7",
+      "MIC 6:8",
+      "PRO 11:2",
+      "PRO 16:18-19",
+      "LUK 14:7-11",
+      "LUK 18:9-14",
+      "MAT 23:11-12",
+      "ROM 12:3"
+    ]
+  },
+  {
+    "id": "gratitude",
+    "name": "Gratitude",
+    "group": "Walking with God",
+    "icon": "sun",
+    "subtitle": "Notice and give thanks",
+    "aliases": [
+      "thanksgiving",
+      "thankful",
+      "thanks"
+    ],
+    "patterns": [
+      "thank\\w*",
+      "gratitude"
+    ],
+    "references": [
+      "1TH 5:16-18",
+      "PSA 100:1-5",
+      "PSA 107:1-9",
+      "COL 3:15-17",
+      "PHP 4:6-7",
+      "LUK 17:11-19",
+      "EPH 5:19-20",
+      "HEB 13:15",
+      "JAS 1:17",
+      "PSA 103:1-5"
+    ]
+  },
+  {
+    "id": "joy",
+    "name": "Joy",
+    "group": "Walking with God",
+    "icon": "smile",
+    "subtitle": "Rejoice in the Lord",
+    "aliases": [
+      "rejoice",
+      "gladness",
+      "delight"
+    ],
+    "patterns": [
+      "joy\\w*",
+      "rejoic\\w*",
+      "gladness"
+    ],
+    "references": [
+      "PHP 4:4-7",
+      "PSA 16:8-11",
+      "JHN 15:9-11",
+      "JHN 16:20-24",
+      "ROM 15:13",
+      "NEH 8:9-12",
+      "HAB 3:17-19",
+      "1TH 5:16-18",
+      "JAS 1:2-4",
+      "1PE 1:6-9"
+    ]
+  },
+  {
+    "id": "courage",
+    "name": "Courage",
+    "group": "In difficult seasons",
+    "icon": "shield",
+    "subtitle": "Take the next faithful step",
+    "aliases": [
+      "bravery",
+      "boldness",
+      "fearless"
+    ],
+    "patterns": [
+      "courage\\w*",
+      "bold\\w*",
+      "be strong",
+      "don.t be afraid",
+      "do not be afraid",
+      "fear not"
+    ],
+    "references": [
+      "JOS 1:5-9",
+      "DEU 31:6-8",
+      "ISA 41:10-13",
+      "2TI 1:6-8",
+      "PSA 27:1-3",
+      "PSA 27:13-14",
+      "ACT 4:23-31",
+      "1CO 16:13-14",
+      "JHN 16:33"
+    ]
+  },
+  {
+    "id": "anxiety",
+    "name": "Worry & fear",
+    "group": "In difficult seasons",
+    "icon": "cloud",
+    "subtitle": "Bring your worries to God",
+    "aliases": [
+      "anxiety",
+      "anxious",
+      "worry",
+      "afraid",
+      "stress"
+    ],
+    "patterns": [
+      "anxi\\w*",
+      "worr\\w*",
+      "afraid",
+      "troubled heart",
+      "heart be troubled"
+    ],
+    "references": [
+      "MAT 6:25-34",
+      "PHP 4:6-9",
+      "1PE 5:6-7",
+      "PSA 56:3-4",
+      "ISA 41:10",
+      "JHN 14:1-3",
+      "JHN 14:27",
+      "PSA 94:18-19",
+      "LUK 12:22-32",
+      "PSA 23:1-6"
+    ]
+  },
+  {
+    "id": "grief",
+    "name": "Grief & loss",
+    "group": "In difficult seasons",
+    "icon": "cloud-rain",
+    "subtitle": "Bring sorrow into His presence",
+    "aliases": [
+      "mourning",
+      "sadness",
+      "sorrow",
+      "loss"
+    ],
+    "patterns": [
+      "grief",
+      "griev\\w*",
+      "mourn\\w*",
+      "sorrow\\w*",
+      "weep\\w*",
+      "wept"
+    ],
+    "references": [
+      "MAT 5:4",
+      "PSA 34:18",
+      "PSA 147:3",
+      "JHN 11:17-36",
+      "1TH 4:13-18",
+      "REV 21:1-5",
+      "LAM 3:19-33",
+      "ROM 12:15",
+      "2CO 1:3-7"
+    ]
+  },
+  {
+    "id": "comfort",
+    "name": "Comfort & refuge",
+    "group": "In difficult seasons",
+    "icon": "home",
+    "subtitle": "God is near in trouble",
+    "aliases": [
+      "consolation",
+      "refuge",
+      "shelter",
+      "protection"
+    ],
+    "patterns": [
+      "comfort\\w*",
+      "consol\\w*",
+      "refuge",
+      "shelter",
+      "stronghold"
+    ],
+    "references": [
+      "2CO 1:3-7",
+      "PSA 23:1-6",
+      "PSA 46:1-11",
+      "PSA 91:1-16",
+      "ISA 40:1-11",
+      "ISA 49:13-16",
+      "PSA 34:17-19",
+      "ROM 8:31-39",
+      "MAT 11:28-30"
+    ]
+  },
+  {
+    "id": "strength",
+    "name": "Strength in weakness",
+    "group": "In difficult seasons",
+    "icon": "zap",
+    "subtitle": "Depend on His strength",
+    "aliases": [
+      "strength",
+      "weakness",
+      "renewal"
+    ],
+    "patterns": [
+      "strength\\w*",
+      "weakness",
+      "renew their strength"
+    ],
+    "references": [
+      "ISA 40:28-31",
+      "2CO 12:7-10",
+      "PHP 4:10-13",
+      "EPH 6:10-18",
+      "PSA 46:1-3",
+      "PSA 73:25-26",
+      "ISA 41:10",
+      "2TI 4:16-18",
+      "HAB 3:17-19"
+    ]
+  },
+  {
+    "id": "guidance",
+    "name": "Guidance",
+    "group": "Walking with God",
+    "icon": "navigation",
+    "subtitle": "Seek God’s direction",
+    "aliases": [
+      "direction",
+      "decisions",
+      "lead",
+      "path"
+    ],
+    "patterns": [
+      "guid\\w*",
+      "direct your paths",
+      "lamp to my feet",
+      "teach me your",
+      "lead me"
+    ],
+    "references": [
+      "PRO 3:5-6",
+      "PSA 25:4-5",
+      "PSA 32:8-9",
+      "PSA 119:105",
+      "JAS 1:5-8",
+      "ISA 30:21",
+      "PSA 143:8-10",
+      "ROM 12:1-2",
+      "JHN 16:12-15"
+    ]
+  },
+  {
+    "id": "obedience",
+    "name": "Obedience",
+    "group": "Walking with God",
+    "icon": "check-circle",
+    "subtitle": "Put the Word into practice",
+    "aliases": [
+      "obey",
+      "commandments",
+      "doing"
+    ],
+    "patterns": [
+      "obey\\w*",
+      "obedien\\w*",
+      "keep my commandments",
+      "doers of the word"
+    ],
+    "references": [
+      "JHN 14:15-24",
+      "JAS 1:22-25",
+      "LUK 6:46-49",
+      "MAT 7:21-27",
+      "DEU 6:4-9",
+      "1SA 15:22",
+      "1JN 2:3-6",
+      "ROM 12:1-2",
+      "JOS 1:7-8"
+    ]
+  },
+  {
+    "id": "holiness",
+    "name": "Holiness",
+    "group": "Walking with God",
+    "icon": "star",
+    "subtitle": "Be set apart for God",
+    "aliases": [
+      "purity",
+      "sanctification",
+      "holy"
+    ],
+    "patterns": [
+      "holy",
+      "holiness",
+      "sanctif\\w*",
+      "purity",
+      "pure heart"
+    ],
+    "references": [
+      "1PE 1:13-16",
+      "HEB 12:14",
+      "1TH 4:1-8",
+      "2TI 2:20-22",
+      "PSA 24:3-6",
+      "MAT 5:8",
+      "ROM 12:1-2",
+      "2CO 7:1",
+      "LEV 19:1-2"
+    ]
+  },
+  {
+    "id": "justice",
+    "name": "Justice",
+    "group": "Life together",
+    "icon": "columns",
+    "subtitle": "Act justly and defend the vulnerable",
+    "aliases": [
+      "fairness",
+      "oppression",
+      "righteousness"
+    ],
+    "patterns": [
+      "justice",
+      "oppress\\w*",
+      "defend the",
+      "fatherless",
+      "widow\\w*"
+    ],
+    "references": [
+      "MIC 6:6-8",
+      "ISA 1:16-17",
+      "AMO 5:21-24",
+      "PRO 31:8-9",
+      "PSA 82:1-4",
+      "ISA 58:6-12",
+      "DEU 10:17-19",
+      "JAS 1:27",
+      "JAS 2:1-9",
+      "ZEC 7:9-10"
+    ]
+  },
+  {
+    "id": "generosity",
+    "name": "Generosity",
+    "group": "Life together",
+    "icon": "gift",
+    "subtitle": "Share what you have received",
+    "aliases": [
+      "giving",
+      "charity",
+      "poor",
+      "hospitality"
+    ],
+    "patterns": [
+      "genero\\w*",
+      "cheerful giver",
+      "give to the poor",
+      "share with",
+      "hospitab\\w*",
+      "hospitality"
+    ],
+    "references": [
+      "2CO 9:6-15",
+      "PRO 11:24-25",
+      "PRO 19:17",
+      "LUK 6:35-38",
+      "1TI 6:17-19",
+      "HEB 13:1-3",
+      "HEB 13:16",
+      "ACT 20:35",
+      "MAT 6:1-4",
+      "1JN 3:16-18"
+    ]
+  },
+  {
+    "id": "service",
+    "name": "Service",
+    "group": "Life together",
+    "icon": "tool",
+    "subtitle": "Serve with the love of Christ",
+    "aliases": [
+      "serving",
+      "helping",
+      "servant"
+    ],
+    "patterns": [
+      "servant\\w*",
+      "serv(?:e|es|ed|ing)",
+      "minister\\w*"
+    ],
+    "references": [
+      "MRK 10:35-45",
+      "JHN 13:1-17",
+      "GAL 5:13-14",
+      "1PE 4:8-11",
+      "ROM 12:4-13",
+      "MAT 25:31-40",
+      "COL 3:23-24",
+      "PHP 2:1-8"
+    ]
+  },
+  {
+    "id": "unity",
+    "name": "Unity & community",
+    "group": "Life together",
+    "icon": "users",
+    "subtitle": "Build one another up",
+    "aliases": [
+      "church",
+      "fellowship",
+      "community",
+      "together"
+    ],
+    "patterns": [
+      "unity",
+      "one body",
+      "one another",
+      "fellowship",
+      "assembly"
+    ],
+    "references": [
+      "EPH 4:1-16",
+      "1CO 12:12-27",
+      "ACT 2:42-47",
+      "HEB 10:23-25",
+      "PSA 133:1-3",
+      "JHN 17:20-23",
+      "ROM 15:5-7",
+      "COL 3:12-17",
+      "1TH 5:11"
+    ]
+  },
+  {
+    "id": "family",
+    "name": "Family",
+    "group": "Life together",
+    "icon": "home",
+    "subtitle": "Love faithfully at home",
+    "aliases": [
+      "parents",
+      "children",
+      "marriage",
+      "household"
+    ],
+    "patterns": [
+      "father and mother",
+      "husband\\w*",
+      "wife",
+      "wives",
+      "parent\\w*",
+      "your children"
+    ],
+    "references": [
+      "DEU 6:4-9",
+      "EPH 5:21-33",
+      "EPH 6:1-4",
+      "COL 3:18-21",
+      "PSA 127:1-5",
+      "PSA 128:1-6",
+      "PRO 22:6",
+      "GEN 2:18-24",
+      "EXO 20:12",
+      "1TI 5:3-8"
+    ]
+  },
+  {
+    "id": "friendship",
+    "name": "Friendship",
+    "group": "Life together",
+    "icon": "user-plus",
+    "subtitle": "Walk faithfully with others",
+    "aliases": [
+      "friends",
+      "companionship",
+      "loyalty"
+    ],
+    "patterns": [
+      "friend\\w*",
+      "companion\\w*"
+    ],
+    "references": [
+      "PRO 17:17",
+      "PRO 18:24",
+      "PRO 27:5-6",
+      "PRO 27:9-10",
+      "PRO 27:17",
+      "ECC 4:9-12",
+      "JHN 15:12-15",
+      "RUT 1:16-17",
+      "1SA 18:1-4"
+    ]
+  },
+  {
+    "id": "work",
+    "name": "Work & diligence",
+    "group": "Life together",
+    "icon": "briefcase",
+    "subtitle": "Work faithfully in daily life",
+    "aliases": [
+      "diligence",
+      "work",
+      "labor",
+      "responsibility"
+    ],
+    "patterns": [
+      "diligen\\w*",
+      "labor\\w*",
+      "work\\w*",
+      "sluggard",
+      "lazy"
+    ],
+    "references": [
+      "COL 3:22-24",
+      "PRO 6:6-11",
+      "PRO 14:23",
+      "PRO 16:3",
+      "2TH 3:6-13",
+      "1TH 4:9-12",
+      "ECC 3:12-13",
+      "GEN 2:15",
+      "EPH 4:28"
+    ]
+  },
+  {
+    "id": "speech",
+    "name": "Words & truth",
+    "group": "Life together",
+    "icon": "message-square",
+    "subtitle": "Speak with truth and grace",
+    "aliases": [
+      "speech",
+      "tongue",
+      "honesty",
+      "gossip",
+      "lying"
+    ],
+    "patterns": [
+      "tongue",
+      "gossip\\w*",
+      "slander\\w*",
+      "lying",
+      "speak the truth",
+      "gracious words"
+    ],
+    "references": [
+      "JAS 3:1-12",
+      "EPH 4:25-32",
+      "PRO 15:1-4",
+      "PRO 18:21",
+      "COL 4:5-6",
+      "PSA 19:14",
+      "PRO 12:18-22",
+      "JAS 1:19-20",
+      "MAT 5:33-37"
+    ]
+  },
+  {
+    "id": "temptation",
+    "name": "Temptation & self-control",
+    "group": "Walking with God",
+    "icon": "shield",
+    "subtitle": "Choose what leads toward life",
+    "aliases": [
+      "temptation",
+      "self control",
+      "discipline",
+      "resist"
+    ],
+    "patterns": [
+      "tempt\\w*",
+      "self.control",
+      "resist the devil",
+      "flee from",
+      "disciplin\\w*"
+    ],
+    "references": [
+      "1CO 10:12-13",
+      "JAS 1:12-15",
+      "MAT 4:1-11",
+      "GAL 5:16-25",
+      "JAS 4:7-8",
+      "2TI 2:22",
+      "TIT 2:11-14",
+      "PRO 25:28",
+      "HEB 4:14-16"
+    ]
+  },
+  {
+    "id": "worship",
+    "name": "Worship & praise",
+    "group": "Walking with God",
+    "icon": "music",
+    "subtitle": "Give glory to God",
+    "aliases": [
+      "praise",
+      "adoration",
+      "singing",
+      "psalms"
+    ],
+    "patterns": [
+      "worship\\w*",
+      "prais\\w*",
+      "sing\\w*",
+      "psalm\\w*"
+    ],
+    "references": [
+      "PSA 95:1-7",
+      "PSA 100:1-5",
+      "PSA 150:1-6",
+      "JHN 4:19-24",
+      "ROM 12:1-2",
+      "HEB 13:15-16",
+      "COL 3:16-17",
+      "EPH 5:18-20",
+      "REV 4:8-11"
+    ]
+  },
+  {
+    "id": "creation",
+    "name": "Creation",
+    "group": "The story of Scripture",
+    "icon": "globe",
+    "subtitle": "God, the maker of all things",
+    "aliases": [
+      "creator",
+      "nature",
+      "beginning",
+      "heavens"
+    ],
+    "patterns": [
+      "creat\\w*",
+      "made the heavens",
+      "made the earth",
+      "in the beginning"
+    ],
+    "references": [
+      "GEN 1:1-31",
+      "GEN 2:1-3",
+      "PSA 19:1-6",
+      "PSA 104:1-35",
+      "JHN 1:1-5",
+      "COL 1:15-20",
+      "ROM 1:19-20",
+      "HEB 11:3",
+      "REV 4:11"
+    ]
+  },
+  {
+    "id": "covenant",
+    "name": "Covenant & promise",
+    "group": "The story of Scripture",
+    "icon": "link",
+    "subtitle": "God’s faithfulness through history",
+    "aliases": [
+      "promise",
+      "covenants",
+      "faithfulness"
+    ],
+    "patterns": [
+      "covenant\\w*",
+      "promis\\w*",
+      "steadfast love"
+    ],
+    "references": [
+      "GEN 9:8-17",
+      "GEN 12:1-3",
+      "GEN 15:1-6",
+      "GEN 17:1-8",
+      "EXO 19:3-6",
+      "2SA 7:8-16",
+      "JER 31:31-34",
+      "LUK 22:19-20",
+      "HEB 8:6-13",
+      "2CO 1:18-22"
+    ]
+  },
+  {
+    "id": "spirit",
+    "name": "The Holy Spirit",
+    "group": "The story of Scripture",
+    "icon": "wind",
+    "subtitle": "Life led by the Spirit",
+    "aliases": [
+      "holy spirit",
+      "spirit of god",
+      "spiritual gifts"
+    ],
+    "patterns": [
+      "holy spirit",
+      "spirit of god",
+      "spirit of the lord",
+      "fruit of the spirit",
+      "gifts of the spirit"
+    ],
+    "references": [
+      "JHN 14:15-17",
+      "JHN 14:25-26",
+      "JHN 16:7-15",
+      "ACT 1:4-8",
+      "ACT 2:1-21",
+      "ROM 8:1-17",
+      "ROM 8:26-27",
+      "GAL 5:16-25",
+      "1CO 12:1-11",
+      "EPH 1:13-14"
+    ]
+  },
+  {
+    "id": "resurrection",
+    "name": "Resurrection",
+    "group": "The story of Scripture",
+    "icon": "sunrise",
+    "subtitle": "Christ is risen",
+    "aliases": [
+      "risen",
+      "raised from the dead",
+      "resurrection"
+    ],
+    "patterns": [
+      "resurrect\\w*",
+      "risen",
+      "raised from the dead",
+      "raise him up"
+    ],
+    "references": [
+      "MAT 28:1-10",
+      "MRK 16:1-8",
+      "LUK 24:1-12",
+      "JHN 20:1-31",
+      "1CO 15:1-58",
+      "ROM 6:1-11",
+      "1PE 1:3-5",
+      "JHN 11:23-27",
+      "1TH 4:13-18"
+    ]
+  },
+  {
+    "id": "eternal-life",
+    "name": "Eternal life",
+    "group": "The story of Scripture",
+    "icon": "sunrise",
+    "subtitle": "Life with God beyond today",
+    "aliases": [
+      "everlasting",
+      "heaven",
+      "eternity"
+    ],
+    "patterns": [
+      "eternal life",
+      "everlasting life",
+      "life everlasting",
+      "eternity"
+    ],
+    "references": [
+      "JHN 3:14-18",
+      "JHN 5:24",
+      "JHN 6:35-40",
+      "JHN 10:27-30",
+      "JHN 14:1-6",
+      "JHN 17:1-3",
+      "1JN 5:11-13",
+      "ROM 6:23",
+      "REV 21:1-7",
+      "REV 22:1-5"
+    ]
+  },
+  {
+    "id": "kingdom",
+    "name": "The kingdom of God",
+    "group": "The story of Scripture",
+    "icon": "sun",
+    "subtitle": "Seek His kingdom first",
+    "aliases": [
+      "kingdom of heaven",
+      "kingdom",
+      "reign"
+    ],
+    "patterns": [
+      "kingdom of god",
+      "god.s kingdom",
+      "kingdom of heaven",
+      "heaven.s kingdom"
+    ],
+    "references": [
+      "MAT 5:1-12",
+      "MAT 6:9-13",
+      "MAT 6:25-34",
+      "MAT 13:1-52",
+      "MRK 1:14-15",
+      "LUK 17:20-21",
+      "ROM 14:17-19",
+      "COL 1:12-14",
+      "REV 11:15"
+    ]
+  },
+  {
+    "id": "leadership",
+    "name": "Leadership",
+    "group": "Life together",
+    "icon": "users",
+    "subtitle": "Lead by serving faithfully",
+    "aliases": [
+      "shepherd",
+      "elders",
+      "leaders",
+      "stewardship"
+    ],
+    "patterns": [
+      "leader\\w*",
+      "elder\\w*",
+      "overseer\\w*",
+      "shepherd\\w*",
+      "steward\\w*"
+    ],
+    "references": [
+      "MRK 10:35-45",
+      "1PE 5:1-4",
+      "1TI 3:1-13",
+      "TIT 1:5-9",
+      "EXO 18:13-26",
+      "JHN 10:1-18",
+      "HEB 13:7",
+      "HEB 13:17",
+      "PRO 11:14"
+    ]
+  },
+  {
+    "id": "money",
+    "name": "Money & contentment",
+    "group": "Life together",
+    "icon": "credit-card",
+    "subtitle": "Keep possessions in perspective",
+    "aliases": [
+      "wealth",
+      "money",
+      "contentment",
+      "riches"
+    ],
+    "patterns": [
+      "money",
+      "riches",
+      "wealth\\w*",
+      "contentment",
+      "treasure\\w*",
+      "covet\\w*"
+    ],
+    "references": [
+      "MAT 6:19-24",
+      "LUK 12:13-21",
+      "1TI 6:6-10",
+      "1TI 6:17-19",
+      "HEB 13:5-6",
+      "PHP 4:10-13",
+      "PRO 30:7-9",
+      "ECC 5:10-15",
+      "LUK 16:10-13"
+    ]
+  },
+  {
+    "id": "scripture",
+    "name": "God’s Word",
+    "group": "Walking with God",
+    "icon": "book-open",
+    "subtitle": "Keep Scripture in your heart",
+    "aliases": [
+      "bible",
+      "scripture",
+      "word of god",
+      "memorization"
+    ],
+    "patterns": [
+      "scripture\\w*",
+      "word of god",
+      "word of christ",
+      "your word",
+      "word of the lord"
+    ],
+    "references": [
+      "2TI 3:14-17",
+      "HEB 4:12-13",
+      "PSA 119:9-16",
+      "PSA 119:97-105",
+      "JOS 1:7-9",
+      "DEU 6:4-9",
+      "COL 3:16",
+      "JAS 1:19-25",
+      "MAT 4:4",
+      "ISA 40:8",
+      "PSA 1:1-6"
+    ]
+  },
+  {
+    "id": "mission",
+    "name": "Sharing the good news",
+    "group": "Life together",
+    "icon": "send",
+    "subtitle": "Bear witness with love",
+    "aliases": [
+      "evangelism",
+      "mission",
+      "witness",
+      "discipleship"
+    ],
+    "patterns": [
+      "preach\\w*",
+      "proclaim\\w*",
+      "make disciples",
+      "witness\\w*",
+      "good news"
+    ],
+    "references": [
+      "MAT 28:16-20",
+      "ACT 1:6-8",
+      "ROM 10:14-17",
+      "1PE 3:15-16",
+      "COL 4:2-6",
+      "2CO 5:17-21",
+      "MAT 5:13-16",
+      "JHN 20:19-23",
+      "2TI 4:1-5"
+    ]
+  }
+]

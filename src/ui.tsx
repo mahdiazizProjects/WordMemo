@@ -1,0 +1,25 @@
+import React from 'react';
+import { Platform, Pressable, StyleSheet, Text, View, type StyleProp, type ViewStyle } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
+export const C = { bg: '#F6F3EC', paper: '#FFFDF8', ink: '#233D33', muted: '#68736A', green: '#294C3C', pale: '#E9EDE4', line: '#DFE2D8', gold: '#98733C', goldPale: '#F1E8D6', error: '#9D473A' };
+export const serif = Platform.select({ ios: 'Georgia', android: 'serif', default: 'Georgia' });
+export function Icon({ name, size = 20, color = C.ink }: { name: string; size?: number; color?: string }) { return <Feather name={name as React.ComponentProps<typeof Feather>['name']} size={size} color={color} accessible={false} />; }
+export function Cross({ size = 36, color = C.gold }: { size?: number; color?: string }) { return <View accessible={false} style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}><View style={{ position: 'absolute', width: 2, height: size * .75, backgroundColor: color }} /><View style={{ position: 'absolute', width: size * .48, height: 2, top: size * .34, backgroundColor: color }} /></View>; }
+export function Button({ children, onPress, variant = 'primary', icon, disabled, style, label }: { children: React.ReactNode; onPress: () => void; variant?: 'primary' | 'secondary' | 'quiet'; icon?: string; disabled?: boolean; style?: StyleProp<ViewStyle>; label?: string }) {
+  const primary = variant === 'primary';
+  return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled: !!disabled }} disabled={disabled} onPress={onPress} style={({ pressed }) => [U.button, primary ? { backgroundColor: C.green } : variant === 'secondary' ? { backgroundColor: C.pale } : {}, { opacity: disabled ? .45 : pressed ? .72 : 1 }, style]}>{icon && <Icon name={icon} size={18} color={primary ? C.paper : C.ink} />}<Text style={[U.buttonText, { color: primary ? C.paper : C.ink }]}>{children}</Text></Pressable>;
+}
+export function Chip({ text, selected, onPress }: { text: string; selected?: boolean; onPress: () => void }) { return <Pressable onPress={onPress} accessibilityRole="button" accessibilityState={{ selected: !!selected }} style={[U.chip, selected && { backgroundColor: C.green, borderColor: C.green }]}><Text style={{ color: selected ? C.paper : C.ink, fontSize: 14 }}>{text}</Text></Pressable>; }
+export function SectionTitle({ title, action, onPress }: { title: string; action?: string; onPress?: () => void }) { return <View style={U.between}><Text accessibilityRole="header" style={U.sectionTitle}>{title}</Text>{action && <Button variant="quiet" onPress={onPress!}>{action}</Button>}</View>; }
+export function Stepper({ value, min, max, onChange, label }: { value: number; min: number; max: number; onChange: (n: number) => void; label: string }) { return <View style={U.between}><Text style={[U.body, { flex: 1 }]}>{label}</Text><View style={U.row}><Button variant="secondary" disabled={value <= min} onPress={() => onChange(value - 1)} label={`Decrease ${label}`}>−</Button><Text accessibilityLiveRegion="polite" style={[U.sectionTitle, { minWidth: 30, textAlign: 'center' }]}>{value}</Text><Button variant="secondary" disabled={value >= max} onPress={() => onChange(value + 1)} label={`Increase ${label}`}>+</Button></View></View>; }
+export const U = StyleSheet.create({
+  shell: { flex: 1, backgroundColor: C.bg }, page: { padding: 24, paddingBottom: 40, gap: 24, width: '100%', maxWidth: 620, alignSelf: 'center' },
+  body: { fontSize: 16, lineHeight: 25, color: C.ink }, small: { fontSize: 13, lineHeight: 20, color: C.muted },
+  eyebrow: { fontSize: 11, lineHeight: 18, letterSpacing: 2, fontWeight: '600', color: C.gold, textTransform: 'uppercase' },
+  title: { fontSize: 39, lineHeight: 44, fontFamily: serif, color: C.ink, letterSpacing: -.8 }, sectionTitle: { fontSize: 22, lineHeight: 28, fontFamily: serif, color: C.ink, flexShrink: 1 },
+  row: { flexDirection: 'row', alignItems: 'center', gap: 10 }, between: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12 }, wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  card: { padding: 22, borderRadius: 20, backgroundColor: C.paper, borderWidth: 1, borderColor: C.line, gap: 16 },
+  button: { minHeight: 48, minWidth: 44, paddingHorizontal: 16, paddingVertical: 12, borderRadius: 13, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 9 }, buttonText: { fontSize: 15, fontWeight: '600', flexShrink: 1, textAlign: 'center', lineHeight: 21 },
+  chip: { paddingHorizontal: 16, paddingVertical: 12, borderRadius: 24, borderWidth: 1, borderColor: C.line, minHeight: 44, justifyContent: 'center' },
+  divider: { height: 1, backgroundColor: C.line }, input: { backgroundColor: C.paper, borderWidth: 1, borderColor: C.line, borderRadius: 13, padding: 15, fontSize: 16, color: C.ink, minHeight: 50 }, quote: { fontFamily: serif, fontSize: 27, lineHeight: 39, color: C.ink },
+});

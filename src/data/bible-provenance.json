@@ -1,0 +1,33 @@
+{
+  "edition": "World English Bible Protestant Edition (WEBP)",
+  "canon": "66-book Old and New Testaments",
+  "source": "https://ebible.org/engwebp/",
+  "rightsUrl": "https://ebible.org/engwebp/copyright.htm",
+  "copyright": "Public domain",
+  "retrievedUtc": "2026-09-09T04:46:32.842267+00:00",
+  "books": 66,
+  "chapters": 1189,
+  "verses": 31103,
+  "versesWithMainText": 31098,
+  "noteOnlyReferences": 5,
+  "bibleSha256": "e7e4357c8d771891cc6993e00c4827955b8c94fe73554141d38cc7bf5cf798b6",
+  "sourceArchives": [
+    {
+      "url": "https://ebible.org/Scriptures/engwebp_vpl.zip",
+      "sha256": "f08d13b4f0701108f7b9f95d57c201649f37c36359f707c8cf1876538a84d750"
+    },
+    {
+      "url": "https://ebible.org/Scriptures/engwebp_html.zip",
+      "sha256": "83fec6cb1dad828df9b7f8c634a79f6f6bf0ee7e5a2ec233bb6036bd45006364"
+    }
+  ],
+  "coverageCheck": "Every verse reference independently matched between the publisher’s VPL and HTML formats.",
+  "textPolicy": "Verse text copied from VPL without word, punctuation, or capitalization changes. Footnotes and layout are outside verse text. Psalm superscriptions retained separately.",
+  "rowFormat": [
+    "bookIndex",
+    "chapter",
+    "verse",
+    "text"
+  ],
+  "countNote": "Verse totals are edition-specific. Preserve source numbering rather than imposing another edition’s total."
+}

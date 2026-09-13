@@ -1,0 +1,48 @@
+{
+  "name": "wordmemo",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "aws-amplify": "^6.20.0",
+    "expo": "~57.0.21",
+    "expo-font": "~57.0.3",
+    "expo-notifications": "~57.0.17",
+    "expo-speech": "~57.0.2",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-svg": "15.15.4",
+    "react-native-web": "~0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:deploy": "python3 -m unittest discover -s tests -p test_deploy_aws.py",
+    "export:web": "expo export --platform web --output-dir dist-web && node scripts/prepare-web.mjs dist-web",
+    "package:web": "npm run export:web && python3 scripts/package-web.py",
+    "package:aws": "python3 scripts/build-backend.py && npm run package:web && python3 scripts/build-aws-installer.py",
+    "export:all": "expo export --platform all --output-dir dist-verified",
+    "test:backend": "python3 -m unittest discover -s tests -p 'test_backend.py'",
+    "postinstall": "node scripts/prepare-data.mjs",
+    "prepare:data": "node scripts/prepare-data.mjs",
+    "pack:data": "node scripts/prepare-data.mjs --pack",
+    "pretest": "node scripts/prepare-data.mjs",
+    "pretypecheck": "node scripts/prepare-data.mjs"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

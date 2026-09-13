@@ -1,0 +1,195 @@
+{
+  "topics": 42,
+  "allReferences": 31103,
+  "structuralCoverage": 31103,
+  "curatedVerses": 1774,
+  "versesWithKeywordSuggestions": 10178,
+  "versesWithAnyTopic": 11293,
+  "structuralOnlyVerses": 19810,
+  "curatedPassageSelections": 421,
+  "keywordVocabulary": 12047,
+  "annotationSha256": "9b60931e2023a0d7efb7af559170732c3a15a2e268fc7154b0d429e5b3cb18aa",
+  "taxonomySha256": "6054ce4125074eaf8429075b4e3b68cd881ce083620bc404a27da0eccf37eacd",
+  "annotationRowFormat": [
+    "curatedTopicIndexes",
+    "suggestedTopicIndexes",
+    "keywords"
+  ],
+  "method": "Editorial passage selections plus whole-word/phrase rules. TF-IDF keywords are extracted from each verse. No text or theological interpretation is generated at runtime.",
+  "limitations": [
+    "Curated means editorial selection, not independent theological review.",
+    "Keyword suggestions describe matching vocabulary; they can include negative examples or another speaker’s words.",
+    "Book-level literary sections are navigation aids; a book can contain multiple genres.",
+    "Structural-only verses remain fully searchable and available for practice."
+  ],
+  "topicCounts": {
+    "perseverance": {
+      "curated": 34,
+      "suggested": 166
+    },
+    "peace": {
+      "curated": 22,
+      "suggested": 389
+    },
+    "hope": {
+      "curated": 55,
+      "suggested": 132
+    },
+    "faith": {
+      "curated": 83,
+      "suggested": 682
+    },
+    "love": {
+      "curated": 82,
+      "suggested": 661
+    },
+    "wisdom": {
+      "curated": 45,
+      "suggested": 524
+    },
+    "prayer": {
+      "curated": 55,
+      "suggested": 331
+    },
+    "forgiveness": {
+      "curated": 62,
+      "suggested": 126
+    },
+    "grace": {
+      "curated": 57,
+      "suggested": 458
+    },
+    "salvation": {
+      "curated": 62,
+      "suggested": 506
+    },
+    "repentance": {
+      "curated": 46,
+      "suggested": 113
+    },
+    "humility": {
+      "curated": 37,
+      "suggested": 167
+    },
+    "gratitude": {
+      "curated": 40,
+      "suggested": 153
+    },
+    "joy": {
+      "curated": 34,
+      "suggested": 414
+    },
+    "courage": {
+      "curated": 32,
+      "suggested": 160
+    },
+    "anxiety": {
+      "curated": 42,
+      "suggested": 258
+    },
+    "grief": {
+      "curated": 55,
+      "suggested": 416
+    },
+    "comfort": {
+      "curated": 68,
+      "suggested": 208
+    },
+    "strength": {
+      "curated": 33,
+      "suggested": 271
+    },
+    "guidance": {
+      "curated": 21,
+      "suggested": 49
+    },
+    "obedience": {
+      "curated": 40,
+      "suggested": 143
+    },
+    "holiness": {
+      "curated": 26,
+      "suggested": 705
+    },
+    "justice": {
+      "curated": 37,
+      "suggested": 317
+    },
+    "generosity": {
+      "curated": 32,
+      "suggested": 14
+    },
+    "service": {
+      "curated": 64,
+      "suggested": 1356
+    },
+    "unity": {
+      "curated": 58,
+      "suggested": 342
+    },
+    "family": {
+      "curated": 53,
+      "suggested": 631
+    },
+    "friendship": {
+      "curated": 21,
+      "suggested": 137
+    },
+    "work": {
+      "curated": 27,
+      "suggested": 909
+    },
+    "speech": {
+      "curated": 40,
+      "suggested": 180
+    },
+    "temptation": {
+      "curated": 38,
+      "suggested": 67
+    },
+    "worship": {
+      "curated": 37,
+      "suggested": 595
+    },
+    "creation": {
+      "curated": 90,
+      "suggested": 134
+    },
+    "covenant": {
+      "curated": 59,
+      "suggested": 407
+    },
+    "spirit": {
+      "curated": 82,
+      "suggested": 107
+    },
+    "resurrection": {
+      "curated": 144,
+      "suggested": 83
+    },
+    "eternal-life": {
+      "curated": 41,
+      "suggested": 39
+    },
+    "kingdom": {
+      "curated": 90,
+      "suggested": 84
+    },
+    "leadership": {
+      "curated": 68,
+      "suggested": 338
+    },
+    "money": {
+      "curated": 42,
+      "suggested": 353
+    },
+    "scripture": {
+      "curated": 48,
+      "suggested": 152
+    },
+    "mission": {
+      "curated": 38,
+      "suggested": 377
+    }
+  }
+}

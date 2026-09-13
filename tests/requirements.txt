@@ -1,0 +1,2 @@
+moto[dynamodb]==5.2.3
+cfn-lint==1.56.3
