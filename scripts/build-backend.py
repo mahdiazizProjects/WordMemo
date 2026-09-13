@@ -66,7 +66,7 @@ def build_template():
         'Environment': {'Variables': {'TABLE_NAME':ref('ProgressTable'), 'CLIENT_ID':ref('WebClient')}}}},
       'HttpApi': {'Type': 'AWS::ApiGatewayV2::Api', 'Properties': {'Name': sub('${AWS::StackName}-api'), 'ProtocolType':'HTTP',
         'CorsConfiguration': {'AllowOrigins': [ref('AppOrigin')], 'AllowMethods':['GET','POST','PUT','DELETE','OPTIONS'], 'AllowHeaders':['authorization','content-type'], 'MaxAge':3600}}},
-      'Authorizer': {'Type':'AWS::ApiGatewayV2::Authorizer', 'Properties': {'ApiId':ref('HttpApi'),'AuthorizerType':'JWT','Name':'WordMemo accounts','IdentitySource':['$request.header.Authorization'],
+      'Authorizer': {'Type':'AWS::ApiGatewayV2::Authorizer', 'Properties': {'ApiId':ref('HttpApi'),'AuthorizerType':'JWT','Name':'WordMemo-accounts','IdentitySource':['$request.header.Authorization'],
         'JwtConfiguration': {'Audience':[ref('WebClient')], 'Issuer':sub('https://cognito-idp.${AWS::Region}.amazonaws.com/${UserPool}')}}},
       'Integration': {'Type':'AWS::ApiGatewayV2::Integration', 'Properties': {'ApiId':ref('HttpApi'),'IntegrationType':'AWS_PROXY','IntegrationUri':att('ApiFunction','Arn'),'PayloadFormatVersion':'2.0','TimeoutInMillis':29000}},
       'Stage': {'Type':'AWS::ApiGatewayV2::Stage','Properties': {'ApiId':ref('HttpApi'),'StageName':'$default','AutoDeploy':True,'DefaultRouteSettings':{'ThrottlingBurstLimit':100,'ThrottlingRateLimit':50}}},

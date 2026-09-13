@@ -21,6 +21,9 @@ def main():
     try:
         stack = cfn.describe_stacks(StackName='wordmemo-sync-d3p8fj75zj86rx')['Stacks'][0]
         print('Backend: ' + stack['StackStatus'])
+        for page in cfn.get_paginator('list_stack_resources').paginate(StackName=stack['StackId']):
+            for resource in page['StackResourceSummaries']:
+                print(json.dumps({k: resource.get(k) for k in ['LogicalResourceId', 'ResourceType', 'ResourceStatus', 'PhysicalResourceId']}))
         events = cfn.describe_stack_events(StackName=stack['StackId'])['StackEvents']
         failures = [e for e in events if 'FAILED' in e.get('ResourceStatus', '')][:12]
         for event in failures:
@@ -32,7 +35,12 @@ def main():
         else:
             raise
     amplify = session.client('amplify')
-    jobs = amplify.list_jobs(appId='d3p8fj75zj86rx', branchName='production', maxResults=3)['jobSummaries']
+    try:
+        jobs = amplify.list_jobs(appId='d3p8fj75zj86rx', branchName='production', maxResults=3)['jobSummaries']
+    except amplify.exceptions.ClientError as error:
+        if error.response['Error']['Code'] not in ('AccessDeniedException', 'AccessDenied'): raise
+        print('Amplify history is unavailable to this role; deployment uses separately authorized job operations.')
+        jobs = []
     for job in jobs:
         print('Amplify job ' + job['jobId'] + ': ' + job['status'])
 
