@@ -48,6 +48,7 @@ WordMemo-authorization.json
 WordMemo-backend.json
 WordMemo-deployment-*.json
 WordMemo-cleanup-*.json
+WordMemo-recovery.json
 
 # Restored by npm install from checksummed content/packed parts
 /src/data/bible.json

@@ -137,8 +137,11 @@ def deploy(region, archive_data, *, verify_only=False, force_new=False, configur
     app_id = app['appId']
     # Retain only non-secret identifiers so rerunning can resume a known job.
     record_path = Path.cwd() / f'WordMemo-deployment-{region}.json'
-    branches = api('amplify', 'list-branches', {'appId': app_id}).get('branches', [])
-    branch = next((item for item in branches if item.get('branchName') == BRANCH), None)
+    try:
+        branch = api('amplify', 'get-branch', {'appId': app_id, 'branchName': BRANCH})['branch']
+    except RuntimeError as error:
+        if 'NotFoundException' not in str(error): raise
+        branch = None
     if branch and (branch.get('enableBasicAuth') or branch.get('enableAutoBuild')):
         raise RuntimeError('The production branch has a different access/build setup. It was left unchanged.')
     if branch is None:

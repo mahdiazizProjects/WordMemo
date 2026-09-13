@@ -62,6 +62,22 @@ and data. Keep write access to the repository with trusted maintainers.
 
 ## Existing installations and failed deployments
 
+The first live diagnostic found an invalid authorizer name (`WordMemo accounts`)
+and a backend in `ROLLBACK_COMPLETE`. The authorizer is now `WordMemo-accounts`.
+AWS retained the account pool and progress table while removing the other
+created resources. The owner-only `scripts/recover-failed-stack.py` checks the
+actual stack status, ownership, every remaining resource, and `Retain` policies.
+With `--apply`, it records the retained pool/table for reuse, corrects the
+production job IAM resource paths, and deletes only the failed stack record.
+It does not give the GitHub role permission to delete stacks, pools, or tables.
+Without `--apply`, it prints its recovery plan without changing AWS.
+
+After owner recovery, return to ChatGPT to rerun the latest deployment. The
+installer can reference a retained table through `ExternalProgressTableName`,
+so creating a new stack does not silently create an empty replacement database.
+The preserved table remains outside the new stack and keeps its existing backup
+and deletion-protection settings. Keep the SSM deployment configuration.
+
 The bootstrap reuses CloudFormation-owned pools/APIs. If it creates a missing
 pool/API, those resources remain outside the backend stack and are recorded in
 SSM; they are not recreated on later runs. Retain this configuration. Their

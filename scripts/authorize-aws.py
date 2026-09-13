@@ -102,9 +102,10 @@ def policies(pool_id, api_id, old_runtime_role=None, table_name=None):
     branch = amplify + '/branches/production'
     stack = arn('cloudformation', 'stack/' + STACK + '/*')
     deploy = policy(
-        allow(['amplify:GetApp', 'amplify:UpdateApp', 'amplify:ListBranches'], amplify),
+        allow(['amplify:GetApp', 'amplify:UpdateApp'], amplify),
         allow(['amplify:GetBranch', 'amplify:CreateBranch', 'amplify:CreateDeployment', 'amplify:StartDeployment', 'amplify:ListJobs', 'amplify:TagResource'], branch),
         allow(['amplify:GetJob', 'amplify:ListJobs'], branch + '/jobs/*'),
+        allow(['amplify:GetBranch', 'amplify:CreateDeployment', 'amplify:StartDeployment', 'amplify:GetJob', 'amplify:ListJobs'], branch + '/*'),
         allow(['cloudformation:DescribeStacks', 'cloudformation:DescribeStackEvents', 'cloudformation:DescribeStackResource',
                'cloudformation:DescribeStackResources', 'cloudformation:ListStackResources', 'cloudformation:GetTemplate', 'cloudformation:GetStackPolicy'], stack),
         allow(['cloudformation:CreateStack', 'cloudformation:UpdateStack', 'cloudformation:ContinueUpdateRollback',
@@ -258,6 +259,8 @@ def run():
     config = {'version': 1, 'repository': REPO, 'subject': SUBJECT, 'userPoolId': pool, 'httpApiId': api_id,
               'externalUserPoolId': '' if resources.get('UserPool') else pool,
               'externalHttpApiId': '' if resources.get('HttpApi') else api_id,
+              'externalProgressTableName': saved.get('externalProgressTableName', ''),
+              'googleSecretArn': saved.get('googleSecretArn', ''),
               'cloudFormationRoleArn': iam_arn('role/' + CFN_ROLE), 'runtimeBoundaryArn': boundary_arn}
     ssm.put_parameter(Name=PARAMETER, Type='String', Value=json.dumps(config), Overwrite=True,
                       Description='WordMemo deployment identifiers; no credentials')

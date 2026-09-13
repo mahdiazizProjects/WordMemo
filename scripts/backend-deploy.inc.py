@@ -69,13 +69,13 @@ def ensure_backend(region, app_id, url, *, configure_google=False):
         stack = wait_backend(api, name)
     if stack and stack.get('StackStatus') not in ('CREATE_COMPLETE','UPDATE_COMPLETE','UPDATE_ROLLBACK_COMPLETE','CREATE_FAILED','UPDATE_FAILED'):
         raise RuntimeError('The WordMemo backend needs attention in CloudFormation: ' + stack.get('StackStatus', 'unknown') + '. The existing public app was not replaced.')
-    old_google = next((p['ParameterValue'] for p in (stack or {}).get('Parameters', []) if p['ParameterKey'] == 'GoogleSecretArn'), '')
+    automation = automation_config(api)
+    old_google = next((p['ParameterValue'] for p in (stack or {}).get('Parameters', []) if p['ParameterKey'] == 'GoogleSecretArn'), (automation or {}).get('googleSecretArn', ''))
     google_arn = google_setup(region, app_id, f'{domain_prefix}.auth.{region}.amazoncognito.com') if configure_google else old_google
     params = {'AppUrl':url, 'AppOrigin':url.rstrip('/'), 'DomainPrefix':domain_prefix, 'GoogleSecretArn':google_arn}
-    automation = automation_config(api)
     previous_params = {p['ParameterKey']: p.get('ParameterValue', '') for p in (stack or {}).get('Parameters', [])}
-    for key, field in [('ExternalUserPoolId', 'externalUserPoolId'), ('ExternalHttpApiId', 'externalHttpApiId'), ('RuntimeBoundaryArn', 'runtimeBoundaryArn')]:
-        params[key] = automation[field] if automation else previous_params.get(key, '')
+    for key, field in [('ExternalUserPoolId', 'externalUserPoolId'), ('ExternalHttpApiId', 'externalHttpApiId'), ('RuntimeBoundaryArn', 'runtimeBoundaryArn'), ('ExternalProgressTableName', 'externalProgressTableName')]:
+        params[key] = automation.get(field, '') if automation else previous_params.get(key, '')
     data = {'StackName':name, 'TemplateBody':json.dumps(BACKEND_TEMPLATE), 'Capabilities':['CAPABILITY_IAM'],
             'Parameters':[{'ParameterKey':k,'ParameterValue':v} for k,v in params.items()], 'Tags':[{'Key':k,'Value':v} for k,v in BACKEND_TAG.items()]}
     if automation:

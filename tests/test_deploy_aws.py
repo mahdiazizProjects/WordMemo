@@ -84,7 +84,7 @@ class DeployTests(unittest.TestCase):
                 self.assertEqual(data['platform'], 'WEB')
                 return {'app': self.app}
             if operation == 'update-app': return {'app': self.app}
-            if operation == 'list-branches': return {'branches': [{'branchName': 'production'}]}
+            if operation == 'get-branch': return {'branch': {'branchName': 'production'}}
             if operation == 'create-deployment': return {'jobId': '7', 'zipUploadUrl': 'https://s3.us-west-2.amazonaws.com/upload?signature=private'}
             if operation == 'start-deployment': return {'jobSummary': {'jobId': '7', 'status': 'PENDING'}}
             if operation == 'get-job': return {'job': {'summary': {'status': 'SUCCEED'}, 'steps': []}}
@@ -135,7 +135,7 @@ class DeployTests(unittest.TestCase):
             calls.append(operation)
             if operation == 'get-caller-identity': return {'Account': deploy.EXPECTED_ACCOUNT}
             if operation == 'get-app': return {'app':self.app}
-            if operation == 'list-branches': return {'branches':[{'branchName':'production'}]}
+            if operation == 'get-branch': return {'branch':{'branchName':'production'}}
             raise AssertionError(operation)
         with tempfile.TemporaryDirectory() as temp, patch.object(deploy.Path,'cwd',return_value=Path(temp)), patch.object(deploy,'aws_cli',side_effect=aws), patch.object(deploy,'ensure_backend',side_effect=RuntimeError('Backend failed')):
             with self.assertRaisesRegex(RuntimeError,'Backend failed'): deploy.deploy('us-west-2',self.data)

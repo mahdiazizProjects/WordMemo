@@ -81,6 +81,11 @@ def build_template():
     # Defaults keep existing installations under CloudFormation management.
     pool_id = {'Fn::If': ['UseExternalPool', ref('ExternalUserPoolId'), ref('UserPool')]}
     api_id = {'Fn::If': ['UseExternalApi', ref('ExternalHttpApiId'), ref('HttpApi')]}
+    table_name = {'Fn::If': ['UseExternalTable', ref('ExternalProgressTableName'), ref('ProgressTable')]}
+    resources['ProgressTable']['Condition'] = 'CreateProgressTable'
+    resources['ApiFunction']['Properties']['Environment']['Variables']['TABLE_NAME'] = table_name
+    resources['ApiRole']['Properties']['Policies'][0]['PolicyDocument']['Statement'][0]['Resource'] = {
+        'Fn::Sub': ['arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${TableName}', {'TableName': table_name}]}
     resources['UserPool']['Condition'] = 'CreateUserPool'
     resources['HttpApi']['Condition'] = 'CreateHttpApi'
     resources['UserPool']['Properties']['UserPoolTags'] = {'WordMemoBackend': 'wordmemo-v2'}
@@ -100,14 +105,17 @@ def build_template():
                      'DomainPrefix':{'Type':'String','AllowedPattern':'[a-z0-9-]{1,63}'}, 'GoogleSecretArn':{'Type':'String','Default':'','AllowedPattern':'(^$|arn:aws:secretsmanager:[a-z0-9-]+:912390896286:secret:wordmemo/google/[A-Za-z0-9/_+=.@-]+)'},
                      'ExternalUserPoolId': {'Type': 'String', 'Default': '', 'AllowedPattern': '(^$|us-west-2_[A-Za-z0-9]+)'},
                      'ExternalHttpApiId': {'Type': 'String', 'Default': '', 'AllowedPattern': '[a-z0-9]*'},
+                     'ExternalProgressTableName': {'Type': 'String', 'Default': '', 'AllowedPattern': '(^$|wordmemo-sync-d3p8fj75zj86rx-ProgressTable-[A-Za-z0-9_-]+)'},
                      'RuntimeBoundaryArn': {'Type': 'String', 'Default': '', 'AllowedPattern': '(^$|arn:aws:iam::912390896286:policy/WordMemoRuntimeBoundary-d3p8fj75zj86rx)'}},
       'Conditions': {'HasGoogle': {'Fn::Not':[{'Fn::Equals':[ref('GoogleSecretArn'),'']}]},
                      'UseExternalPool': {'Fn::Not': [{'Fn::Equals': [ref('ExternalUserPoolId'), '']}]},
                      'UseExternalApi': {'Fn::Not': [{'Fn::Equals': [ref('ExternalHttpApiId'), '']}]},
+                     'UseExternalTable': {'Fn::Not': [{'Fn::Equals': [ref('ExternalProgressTableName'), '']}]},
+                     'CreateProgressTable': {'Fn::Equals': [ref('ExternalProgressTableName'), '']},
                      'CreateUserPool': {'Fn::Equals': [ref('ExternalUserPoolId'), '']},
                      'CreateHttpApi': {'Fn::Equals': [ref('ExternalHttpApiId'), '']},
                      'UseRuntimeBoundary': {'Fn::Not': [{'Fn::Equals': [ref('RuntimeBoundaryArn'), '']}]}}, 'Resources':resources,
-      'Outputs': {'UserPoolId':{'Value':pool_id}, 'ClientId':{'Value':ref('WebClient')}, 'ApiUrl':{'Value':{'Fn::Sub': ['https://${ApiId}.execute-api.${AWS::Region}.amazonaws.com', {'ApiId': api_id}]}}, 'TableName':{'Value':ref('ProgressTable')},
+      'Outputs': {'UserPoolId':{'Value':pool_id}, 'ClientId':{'Value':ref('WebClient')}, 'ApiUrl':{'Value':{'Fn::Sub': ['https://${ApiId}.execute-api.${AWS::Region}.amazonaws.com', {'ApiId': api_id}]}}, 'TableName':{'Value':table_name},
                   'Domain':{'Value':sub('${DomainPrefix}.auth.${AWS::Region}.amazoncognito.com')}, 'GoogleEnabled':{'Value':{'Fn::If':['HasGoogle','true','false']}}}}
 
 if __name__ == '__main__':
