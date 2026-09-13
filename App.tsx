@@ -13,6 +13,8 @@ import { useStoredState } from './src/storage';
 import type { StoredState } from './src/storage';
 import { AccountPanel, SaveStatus } from './src/AccountPanel';
 import { GroupsScreen } from './src/GroupsScreen';
+import { Adventure, GrowBar, Sprout } from './src/Adventure';
+import { PracticeGames } from './src/PracticeGames';
 import { Celebration } from './src/Celebration';
 import { rewardsFor } from './src/rewards';
 import { pendingInvite } from './src/auth-api';
@@ -34,6 +36,7 @@ function WordMemo({ store }: { store: StoredState }) {
   const [chapterView, setChapterView] = useState<{ bookId: string; chapter: number; highlight?: string } | null>(null);
   const [detail, setDetail] = useState<string | null>(null);
   const [session, setSession] = useState<Session | null>(null);
+  const [games, setGames] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [feedback, setFeedback] = useState<{ correct: boolean; xp: number } | null>(null);
   const rewards = useMemo(() => rewardsFor(state, VERSES), [state]);
@@ -54,6 +57,7 @@ function WordMemo({ store }: { store: StoredState }) {
   useEffect(() => { if (notice) scroll.current?.scrollTo({ y: 0, animated: true }); }, [notice]);
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (games) { setGames(false); return true; }
       if (chapterView) { setChapterView(null); return true; }
       if (session) { setSession(null); return true; }
       if (challenge) { setChallenge(null); return true; }
@@ -62,7 +66,7 @@ function WordMemo({ store }: { store: StoredState }) {
       return false;
     });
     return () => sub.remove();
-  }, [session, challenge, detail, tab, chapterView]);
+  }, [session, challenge, detail, tab, chapterView, games]);
   useEffect(() => { if (notice) scroll.current?.scrollTo({ y: 0, animated: true }); }, [notice]);
 
   const updateSettings = (patch: Partial<Settings>) => setState(s => ({ ...s, settings: { ...s.settings, ...patch } }));
@@ -74,12 +78,12 @@ function WordMemo({ store }: { store: StoredState }) {
   const selectedVerse = detail ? VERSE_BY_ID.get(detail) : undefined;
   const allDone = completed >= state.settings.dailyGoal;
   const boxes = boxCounts(state);
-  const isFocused = !!session || !!detail || !!challenge || !!chapterView;
+  const isFocused = games || !!session || !!detail || !!challenge || !!chapterView;
   const isBibleBrowse = state.onboarded && tab === 'topics' && !isFocused;
 
   function toggleFavorite(id: string) { setState(s => ({ ...s, favorites: s.favorites.includes(id) ? s.favorites.filter(x => x !== id) : [...s.favorites, id] })); }
   function toggleLearning(id: string) { setState(s => ({ ...s, enrolled: s.enrolled.includes(id) ? s.enrolled.filter(x => x !== id) : [...s.enrolled, id] })); }
-  function navigate(next: Tab) { setTab(next); setDetail(null); setChallenge(null); setSession(null); setChapterView(null); }
+  function navigate(next: Tab) { setGames(false); setTab(next); setDetail(null); setChallenge(null); setSession(null); setChapterView(null); }
   function grade(correct: boolean) {
     if (!current || !session || !revealed || gradeLock.current) return;
     gradeLock.current = true;
@@ -107,26 +111,26 @@ function WordMemo({ store }: { store: StoredState }) {
   }
   function progressLabel(verse: Verse, direction: 'verse' | 'reference') {
     const p = state.progress[progressKey(verse.id, direction)];
-    return <View style={U.between}><Text style={[U.body, { flex: 1 }]}>{direction === 'verse' ? 'Verse recall' : 'Reference recall'}</Text><Text style={[U.small, { flexShrink: 1, textAlign: 'right' }]}>{p ? `Box ${p.box} · ${p.due <= day ? 'due now' : p.due}` : 'Not practised yet'}</Text></View>;
+    return <View style={U.between}><Text style={[U.body, { flex: 1 }]}>{direction === 'verse' ? 'Verse recall' : 'Reference recall'}</Text><Text style={[U.small, { flexShrink: 1, textAlign: 'right' }]}>{p ? `Box ${p.box} · ${p.due <= day ? 'Due now' : p.due}` : 'Not practised yet'}</Text></View>;
   }
 
   if (!ready || (!fontReady && !fontError)) return <SafeAreaView style={[U.shell, { justifyContent: 'center', alignItems: 'center', padding: 30, gap: 20 }]}><Cross size={52} /><Text style={U.sectionTitle}>WordMemo</Text>{error ? <><Text style={U.body}>{error}</Text><Button onPress={retry}>Try again</Button></> : <ActivityIndicator color={C.green} />}</SafeAreaView>;
 
   return <SafeAreaView style={U.shell} edges={['top', 'bottom']}><StatusBar style="dark" />
-    <View style={S.header}><View style={U.row}><Cross size={26} /><Text style={S.wordmark}>WordMemo</Text></View>{state.onboarded && <Button variant="quiet" icon={isFocused ? 'x' : tab === 'settings' ? 'arrow-left' : 'sliders'} label={isFocused ? 'Close and save progress' : tab === 'settings' ? 'Back to today' : 'Open settings'} onPress={() => { if (chapterView) setChapterView(null); else if (isFocused) { setSession(null); setDetail(null); setChallenge(null); } else navigate(tab === 'settings' ? 'today' : 'settings'); }}>{isFocused ? 'Close' : tab === 'settings' ? 'Back' : ''}</Button>}</View>
+    <View style={S.header}><View style={U.row}><Cross size={26} /><Text style={S.wordmark}>WordMemo</Text></View>{state.onboarded && <Button variant="quiet" icon={isFocused ? 'x' : tab === 'settings' ? 'arrow-left' : 'sliders'} label={isFocused ? 'Close and save progress' : tab === 'settings' ? 'Back to today' : 'Open settings'} onPress={() => { if (games) setGames(false); else if (chapterView) setChapterView(null); else if (isFocused) { setSession(null); setDetail(null); setChallenge(null); } else navigate(tab === 'settings' ? 'today' : 'settings'); }}>{isFocused ? 'Close' : tab === 'settings' ? 'Back' : ''}</Button>}</View>
     {state.onboarded && tab === 'topics' && <View style={{ flex: 1, display: isBibleBrowse ? 'flex' : 'none' }} accessibilityElementsHidden={!isBibleBrowse} importantForAccessibility={isBibleBrowse ? 'auto' : 'no-hide-descendants'}><BibleScreen state={state} initialTopic={filter} onTopicChange={setFilter} addVerses={verses => setState(s => ({ ...s, enrolled: [...new Set([...s.enrolled, ...verses.map(v => v.id)])] }))} openVerse={id => setDetail(id)} practiseTopic={id => { setChallenge(id); setShowExamples(false); }} /></View>}
     {!isBibleBrowse && <ScrollView ref={scroll} contentContainerStyle={U.page} keyboardShouldPersistTaps="handled">
       {!!error && <Text accessibilityRole="alert" style={[U.body, { color: C.error }]}>{error}</Text>}
       {!!notice && <View style={[U.card, { backgroundColor: C.goldPale }]}><Text accessibilityLiveRegion="polite" style={U.body}>{notice}</Text><Button variant="quiet" onPress={() => setNotice('')}>Dismiss</Button></View>}
       {!state.onboarded ? <>
-        <View style={{ paddingTop: 28, gap: 18 }}><Text style={U.eyebrow}>Scripture, carried with you</Text><Text accessibilityRole="header" style={[U.title, { fontSize: 46, lineHeight: 51 }]}>Rooted in{'\n'}the Word.</Text><Text style={[U.body, { color: C.muted }]}>A few verses. A quiet moment. A little more of God’s Word held in your heart.</Text></View>
+        <Sprout enabled={state.settings.celebrationsEnabled !== false} /><View style={{ paddingTop: 8, gap: 18 }}><Text style={U.eyebrow}>Scripture, carried with you</Text><Text accessibilityRole="header" style={[U.title, { fontSize: 46, lineHeight: 51 }]}>Rooted in{'\n'}the Word.</Text><Text style={[U.body, { color: C.muted }]}>A few verses. A quiet moment. A little more of God’s Word held in your heart.</Text></View>
         <View style={U.card}><Text style={U.sectionTitle}>Make room for a daily rhythm</Text><Stepper label="Verses per day" value={state.settings.dailyGoal} min={1} max={30} onChange={n => updateSettings({ dailyGoal: n, newPerDay: n })} /><Text style={U.small}>Your goal includes due reviews and new verses. You can change it at any time.</Text><View style={U.wrap}>{[3, 5, 10, 15].map(n => <Chip key={n} text={`${n} verses`} selected={state.settings.dailyGoal === n} onPress={() => updateSettings({ dailyGoal: n, newPerDay: n })} />)}</View></View>
         <View style={{ gap: 14 }}><Text style={U.sectionTitle}>A simple way to remember</Text>{[['layers', 'Read one side. Recall the other.'], ['repeat', 'Remembered cards return less often.'], ['heart', 'Come back at your own pace.']].map(([icon, title]) => <View key={title} style={U.row}><Icon name={icon} size={18} /><Text style={[U.body, { flex: 1 }]}>{title}</Text></View>)}</View>
         <Button icon="arrow-right" onPress={() => setState(s => ({ ...s, onboarded: true }))}>Begin with the Word</Button><AccountPanel store={store} compact /><Text style={[U.small, { textAlign: 'center' }]}>Guest practice works offline · Sign in to save across devices{'\n'}World English Bible · WEBP</Text>
-      </> : chapterView ? <ChapterScreen {...chapterView} fontScale={state.settings.fontScale} onNavigate={(bookId, chapter) => setChapterView({ bookId, chapter })} openVerse={id => { setChapterView(null); setSession(null); setDetail(id); }} addChapter={verses => { setState(s => ({ ...s, enrolled: [...new Set([...s.enrolled, ...verses.map(v => v.id)])] })); setNotice('Chapter added to My verses. Your daily goal still applies.'); }} /> : session ? <>
+      </> : games ? <PracticeGames verses={enrolled.length >= 4 ? enrolled : VERSES.slice(0, 30)} enabled={state.settings.celebrationsEnabled !== false} onClose={() => setGames(false)} /> : chapterView ? <ChapterScreen {...chapterView} fontScale={state.settings.fontScale} onNavigate={(bookId, chapter) => setChapterView({ bookId, chapter })} openVerse={id => { setChapterView(null); setSession(null); setDetail(id); }} addChapter={verses => { setState(s => ({ ...s, enrolled: [...new Set([...s.enrolled, ...verses.map(v => v.id)])] })); setNotice('Chapter added to My verses. Your daily goal still applies.'); }} /> : session ? <>
         {current && currentVerse ? <>
           <View style={U.between}><Text style={U.eyebrow}>Today’s practice</Text><Text style={U.small}>{session.index + 1} of {session.queue.length}</Text></View>
-          <View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: session.queue.length, now: session.index }} accessibilityLabel="Session progress" style={S.track}><View style={[S.fill, { width: `${session.index / session.queue.length * 100}%` }]} /></View>
+          <GrowBar label="Session progress" value={session.index / session.queue.length * 100} enabled={state.settings.celebrationsEnabled !== false} />
           <Text accessibilityRole="header" style={U.sectionTitle}>{current.direction === 'reference' ? 'Where is this written?' : 'What does this verse say?'}</Text>
           <Pressable accessibilityRole="button" accessibilityLabel={`${revealed ? 'Answer' : 'Recall prompt'}: ${revealed ? current.direction === 'reference' ? currentVerse.reference : currentVerse.text : current.direction === 'reference' ? currentVerse.text : currentVerse.reference}`} accessibilityHint={revealed ? 'Grade your recall with the buttons below' : 'Recall the answer, then activate to reveal the other side'} disabled={revealed} onPress={() => setRevealed(true)} style={[U.card, S.flashcard]}>
             <Text style={U.eyebrow}>{revealed ? 'The other side' : current.direction === 'reference' ? 'Recall the reference' : 'Recall the verse'} · WEBP</Text>
@@ -136,7 +140,7 @@ function WordMemo({ store }: { store: StoredState }) {
             <Text style={U.small}>{current.direction === 'reference' ? currentVerse.text : currentVerse.reference}</Text><Text style={U.body}>Did you recall {current.direction === 'reference' ? 'the book, chapter, and verse number' : 'the complete wording'} correctly?</Text>
             <View style={U.row}><Button variant="secondary" style={{ flex: 1 }} icon="rotate-ccw" onPress={() => grade(false)}>Still learning</Button><Button style={{ flex: 1 }} icon="check" onPress={() => grade(true)}>Remembered</Button></View><Text style={[U.small, { textAlign: 'center' }]}>Still learning returns tomorrow. Remembered moves up one box.</Text>{verseActions(currentVerse)}
           </>}
-        </> : <View style={[U.card, { alignItems: 'center', paddingVertical: 42 }]}><Celebration title="A little more rooted." subtitle="A moment well spent in the Word." xp={session.xp} enabled={state.settings.celebrationsEnabled !== false} kind="complete" /><Text style={[U.body, { textAlign: 'center' }]}>{session.index} {session.index === 1 ? 'verse' : 'verses'} practised. Your next reviews are scheduled.</Text><Text style={[U.small, { textAlign: 'center' }]}>You can stop here, or explore a topic.</Text><Button onPress={() => navigate('today')}>Back to today</Button><Button variant="quiet" onPress={() => navigate('topics')}>Explore topics</Button></View>}
+        </> : <View style={[U.card, { alignItems: 'center', paddingVertical: 42 }]}><Celebration title="Adventure complete!" subtitle="New roots. New confidence. A moment worth celebrating." xp={session.xp} enabled={state.settings.celebrationsEnabled !== false} kind="complete" /><Text style={[U.body, { textAlign: 'center' }]}>{session.index} {session.index === 1 ? 'verse' : 'verses'} practised. Your next reviews are scheduled.</Text><Text style={[U.small, { textAlign: 'center' }]}>You can stop here, or explore a topic.</Text><Button onPress={() => navigate('today')}>Back to today</Button><Button variant="quiet" onPress={() => navigate('topics')}>Explore topics</Button></View>}
       </> : challenge ? <>
         <Text style={U.eyebrow}>Recall by topic · extra practice</Text><Text accessibilityRole="header" style={U.title}>A word for{'\n'}{topicName(challenge).toLowerCase()}.</Text><Text style={U.body}>Which passage comes to mind? Try to recall its words and its reference before looking.</Text><View style={[U.card, { alignItems: 'center', paddingVertical: 40 }]}><Icon name={TOPICS.find(t => t.id === challenge)!.icon} size={32} color={C.gold} /><Text style={U.quote}>{topicName(challenge)}</Text><Text style={[U.small, { textAlign: 'center' }]}>There may be several fitting passages.</Text></View>
         {!showExamples ? <Button onPress={() => setShowExamples(true)}>Show passages on this topic</Button> : topicVerses(challenge, true).slice(0, 12).map(v => <View key={v.id} style={U.card}><Text style={U.sectionTitle}>{v.reference}</Text><Text style={U.body}>{v.text}</Text><Text style={U.small}>WEBP</Text></View>)}<Button variant="secondary" onPress={() => { const id = challenge; navigate('topics'); setFilter(id); }}>Browse all verses on this topic</Button><Text style={U.small}>Examples come from curated selections. Extra practice leaves your Leitner boxes and daily goal unchanged.</Text>
@@ -145,11 +149,8 @@ function WordMemo({ store }: { store: StoredState }) {
         <Button disabled={!selectedVerse.text} icon={state.enrolled.includes(selectedVerse.id) ? 'pause' : 'plus'} onPress={() => toggleLearning(selectedVerse.id)}>{state.enrolled.includes(selectedVerse.id) ? 'Pause this verse' : 'Add to my verses'}</Button><Button variant="secondary" icon="bookmark" onPress={() => toggleFavorite(selectedVerse.id)}>{state.favorites.includes(selectedVerse.id) ? 'Remove from saved' : 'Save for later'}</Button>{verseActions(selectedVerse)}
         <View style={U.card}><Text style={U.sectionTitle}>Your recall</Text>{progressLabel(selectedVerse, 'reference')}{progressLabel(selectedVerse, 'verse')}</View><View style={U.card}><Text style={U.sectionTitle}>Topics & keywords</Text>{selectedVerse.assignments?.length ? selectedVerse.assignments.map(a => <View key={a.topic} style={{ gap: 4 }}><Text style={U.body}>{topicName(a.topic)}</Text><Text style={U.small}>{a.basis === 'curated' ? `Curated passage selection · ${a.sourceRange ?? selectedVerse.reference}` : 'Keyword suggestion · matching vocabulary, not a claim about the speaker’s teaching'}</Text></View>) : <Text style={U.small}>Organized by book and literary section. No devotional topic has been assigned to this verse.</Text>}<Text style={U.small}>Keywords: {selectedVerse.keywords?.join(' · ') || 'No keywords in this textual note.'}</Text></View><Text style={U.small}>Pausing a verse preserves its progress. Curated selections are editorial choices; keyword suggestions need context.</Text>
       </> : tab === 'today' ? <>
-        <View style={{ gap: 9 }}><Text style={U.eyebrow}>{new Date(`${day}T12:00:00`).toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</Text><Text accessibilityRole="header" style={U.title}>Make room{'\n'}for the Word.</Text><Text style={[U.body, { color: C.muted }]}>A quiet moment to remember what matters.</Text></View>
-        <View style={[U.card, { borderColor: '#CDD6C7', backgroundColor: '#F0F2EA' }]}><View style={U.between}><Text style={U.eyebrow}>Your daily rhythm</Text><Icon name={allDone ? 'check-circle' : 'sunrise'} color={C.green} /></View><View style={[U.row, { alignItems: 'baseline' }]}><Text style={[U.title, { fontSize: 48, lineHeight: 56 }]}>{completed}<Text style={{ fontSize: 28, color: C.muted }}> / {state.settings.dailyGoal}</Text></Text><Text style={U.small}>verses practised</Text></View><View accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: state.settings.dailyGoal, now: Math.min(completed, state.settings.dailyGoal) }} accessibilityLabel="Daily verse goal" style={S.track}><View style={[S.fill, { width: `${Math.min(1, completed / state.settings.dailyGoal) * 100}%` }]} /></View>
-          <Text style={U.small}>{queue.length ? `${queue.filter(i => !i.isNew).length} due reviews · ${queue.filter(i => i.isNew).length} new verses in this session` : allDone ? 'Your daily goal is complete. Rest, or explore a topic.' : 'Nothing else is scheduled within your limits today. Add verses or return tomorrow.'}</Text><SaveStatus store={store} />{queue.length > 0 ? <Button icon="arrow-right" onPress={() => { setRevealed(false); setFeedback(null); setSession({ queue, index: 0, day, xp: 0 }); }}>Begin practice</Button> : <Button variant="secondary" icon="book-open" onPress={() => navigate('topics')}>Explore the Word</Button>}
-        </View>
-        <View style={U.card}><View style={U.between}><Text style={U.sectionTitle}>Level {rewards.level} · {rewards.levelName}</Text><Icon name="award" color={C.gold} /></View><Text style={U.small}>{rewards.xp} points · {rewards.toNextLevel} to your next level</Text><Button variant="quiet" onPress={() => navigate('journey')}>See my milestones</Button></View>{(!store.auth.account || store.guest) && <AccountPanel store={store} compact />}<Button variant="secondary" icon="users" onPress={() => navigate('groups')}>Practise with my life group</Button><View><SectionTitle title="A word for every season" action="See all" onPress={() => { navigate('topics'); setFilter('all'); }} /><View style={[U.wrap, { marginTop: 10 }]}>{topicCard('perseverance')}{topicCard('peace')}</View></View><View style={{ borderTopWidth: 1, borderColor: C.line, paddingTop: 20, gap: 10 }}><Text style={U.eyebrow}>Carry it in your heart</Text><Text style={[U.quote, { fontSize: 21, lineHeight: 31 }]}>{VERSES.find(v => v.id === 'webp-psa-119-11-11')?.text}</Text><Text style={U.small}>Psalms 119:11 · WEBP</Text></View>
+        <Adventure state={state} day={day} remaining={queue.length} onStart={() => { if (!queue.length) { navigate('topics'); return; } setRevealed(false); setFeedback(null); setSession({ queue, index: 0, day, xp: 0 }); }} onGames={() => { setGames(true); scroll.current?.scrollTo({ y: 0, animated: false }); }} onTogether={() => navigate('groups')} onJourney={() => navigate('journey')} />
+        <SaveStatus store={store} />{(!store.auth.account || store.guest) && <AccountPanel store={store} compact />}
       </> : tab === 'journey' ? <>
         <Text style={U.eyebrow}>Small moments, lasting roots</Text><Text accessibilityRole="header" style={U.title}>Your journey{'\n'}in the Word.</Text><Text style={U.body}>Progress grows through returning. A missed day leaves your learning intact.</Text>
         <View style={U.card}><Text style={U.eyebrow}>{rewards.levelName}</Text><Text style={U.title}>Level {rewards.level}</Text><Text style={U.body}>{rewards.xp} points · {rewards.toNextLevel} to the next level</Text><View style={S.track}><View style={[S.fill, { width: `${rewards.levelProgress}%` }]} /></View><Text style={U.small}>10 points for a remembered verse, 3 for practising, and 25 for completing your daily goal. Each verse earns points once a day. There is no penalty for missed days.</Text></View>
