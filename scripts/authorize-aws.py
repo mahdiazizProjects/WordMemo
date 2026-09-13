@@ -85,7 +85,8 @@ def policies(pool_id, api_id, old_runtime_role=None, table_name=None):
                'cognito-idp:CreateIdentityProvider', 'cognito-idp:DescribeIdentityProvider', 'cognito-idp:UpdateIdentityProvider', 'cognito-idp:DeleteIdentityProvider'], pool),
         # DescribeUserPoolDomain has no resource-level IAM support.
         allow('cognito-idp:DescribeUserPoolDomain', '*', {'StringEquals': {'aws:RequestedRegion': REGION}}),
-        allow(['apigateway:GET', 'apigateway:POST', 'apigateway:PUT', 'apigateway:PATCH', 'apigateway:DELETE'], [api, api + '/*']),
+        allow(['apigateway:GET', 'apigateway:POST', 'apigateway:PUT', 'apigateway:PATCH', 'apigateway:DELETE',
+               'apigateway:TagResource'], [api, api + '/*']),
         allow(['lambda:CreateFunction', 'lambda:GetFunction', 'lambda:GetFunctionConfiguration', 'lambda:UpdateFunctionCode',
                'lambda:UpdateFunctionConfiguration', 'lambda:DeleteFunction', 'lambda:GetPolicy', 'lambda:AddPermission',
                'lambda:RemovePermission', 'lambda:ListTags', 'lambda:TagResource', 'lambda:UntagResource'], function),
