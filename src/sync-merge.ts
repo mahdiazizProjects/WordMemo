@@ -82,8 +82,16 @@ export function mergeStates(base: AppState, local: AppState, remote: AppState): 
     if (existing) existing.verseIds = [...new Set([...existing.verseIds, ...extra.verseIds])]; else stacks.push(extra);
   }
   if (stacks.length > 50 || stacks.some(s => s.verseIds.length > 200)) throw new Error('These devices have more stacks than can be combined safely. Export a backup, reduce the number of stacks, then retry saving.');
+  const lessons = new Map<string, NonNullable<AppState['lessons']>[number]>();
+  for (const item of [...(remote.lessons ?? []), ...(local.lessons ?? [])]) {
+    const old = lessons.get(item.id);
+    if (!old || item.updatedAt > old.updatedAt || (item.updatedAt === old.updatedAt && stableJson(item) > stableJson(old))) lessons.set(item.id, item);
+  }
+  if (lessons.size > 4000) throw new Error('There are too many lessons to merge safely. Export a backup.');
+  const ld = local.stackDraft, rd = remote.stackDraft;
+  const stackDraft = !ld ? rd : !rd ? ld : same(ld, base.stackDraft) ? rd : same(rd, base.stackDraft) ? ld : ld.updatedAt >= rd.updatedAt ? ld : rd;
   const days = new Set(history.map(r => r.day));
-  return { version: 1, onboarded: local.onboarded || remote.onboarded, settings, stacks,
+  return { ...(local.lessons !== undefined || remote.lessons !== undefined ? { lessons: [...lessons.values()] } : {}), ...(stackDraft ? { stackDraft } : {}), version: 1, onboarded: local.onboarded || remote.onboarded, settings, stacks,
     enrolled: mergeSet(base.enrolled, local.enrolled, remote.enrolled),
     favorites: mergeSet(base.favorites, local.favorites, remote.favorites), progress, history,
     goalDays: [...new Set([...(local.goalDays ?? []), ...(remote.goalDays ?? [])])].filter(day => days.has(day)).sort() };

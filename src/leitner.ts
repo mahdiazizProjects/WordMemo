@@ -1,3 +1,4 @@
+import { validLesson } from './lessons.ts';
 import type { AppState, Direction, Progress, QueueItem, Verse } from './types';
 
 // Product defaults, not a claim that these are uniquely optimal intervals.
@@ -111,7 +112,12 @@ export function parseBackup(raw: string, verses: Verse[]): AppState {
   if (s.celebrationsEnabled !== undefined && typeof s.celebrationsEnabled !== 'boolean') throw new Error('The backup contains an invalid celebration setting.');
   const stacks = x.stacks ?? [];
   if (!Array.isArray(stacks) || stacks.length > 50 || new Set(stacks.map((v: any) => v?.id)).size !== stacks.length || !stacks.every((v: any) => v && typeof v.id === 'string' && /^[a-zA-Z0-9_-]{8,80}$/.test(v.id) && typeof v.name === 'string' && v.name.trim().length > 0 && v.name.length <= 80 && list(v.verseIds) && v.verseIds.length > 0 && v.verseIds.length <= 200 && typeof v.updatedAt === 'string' && Number.isFinite(Date.parse(v.updatedAt)))) throw new Error('The backup contains an invalid verse stack.');
-  return { version: 1, onboarded: x.onboarded, enrolled: x.enrolled, favorites: x.favorites, progress, history,
+  if (x.lessons !== undefined && (!Array.isArray(x.lessons) || x.lessons.length > 4000 || new Set(x.lessons.map((l: any) => l?.id)).size !== x.lessons.length || !x.lessons.every((l: any) => validLesson(l, ids)))) throw new Error('The backup contains invalid lesson progress.');
+  if (x.stackDraft !== undefined) {
+    const d = x.stackDraft, v = d?.value;
+    if (!d || Object.keys(d).sort().join(',') !== 'updatedAt,value' || typeof d.updatedAt !== 'string' || !Number.isFinite(Date.parse(d.updatedAt)) || (v !== null && (!v || Object.keys(v).sort().join(',') !== 'id,name,updatedAt,verseIds' || typeof v.id !== 'string' || !/^[a-zA-Z0-9_-]{8,80}$/.test(v.id) || typeof v.name !== 'string' || v.name.length > 80 || !list(v.verseIds) || v.verseIds.length > 200 || typeof v.updatedAt !== 'string' || !Number.isFinite(Date.parse(v.updatedAt))))) throw new Error('The backup contains an invalid stack draft.');
+  }
+  return { ...(x.lessons !== undefined ? { lessons: x.lessons } : {}), ...(x.stackDraft !== undefined ? { stackDraft: x.stackDraft } : {}), version: 1, onboarded: x.onboarded, enrolled: x.enrolled, favorites: x.favorites, progress, history,
     ...(x.stacks !== undefined ? { stacks: stacks.map((v: any) => ({ id: v.id, name: v.name.trim(), verseIds: v.verseIds, updatedAt: v.updatedAt })) } : {}),
     ...(x.goalDays !== undefined ? { goalDays: [...goalDays].sort() } : {}),
     settings: { dailyGoal: s.dailyGoal, newPerDay: s.newPerDay, mode: s.mode, fontScale: s.fontScale, reminderEnabled: s.reminderEnabled, reminderTime: s.reminderTime, ...(s.celebrationsEnabled !== undefined ? { celebrationsEnabled: s.celebrationsEnabled } : {}) } };

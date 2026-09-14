@@ -129,8 +129,14 @@ def verse_list(value, max_count=31200, nonempty=False, memory=False):
     return isinstance(value, list) and (not nonempty or len(value) > 0) and len(value) <= max_count and all(valid_verse(v, memory) for v in value) and len(set(value)) == len(value)
 
 
+def timestamp(value):
+    require(isinstance(value, str) and len(value) <= 40)
+    try: datetime.fromisoformat(value.replace('Z', '+00:00'))
+    except ValueError: raise Problem(400, 'Invalid saved date.') from None
+
+
 def validate_state(x):
-    require(isinstance(x, dict) and set(x) <= {'version', 'onboarded', 'settings', 'enrolled', 'favorites', 'progress', 'history', 'goalDays', 'stacks'})
+    require(isinstance(x, dict) and set(x) <= {'version', 'onboarded', 'settings', 'enrolled', 'favorites', 'progress', 'history', 'goalDays', 'stacks', 'lessons', 'stackDraft'})
     require(type(x.get('version')) is int and x.get('version') == 1 and type(x.get('onboarded')) is bool and verse_list(x.get('enrolled')) and verse_list(x.get('favorites')))
     s = x.get('settings', {})
     require(isinstance(s, dict) and set(s) <= {'dailyGoal', 'newPerDay', 'mode', 'fontScale', 'reminderTime', 'reminderEnabled', 'celebrationsEnabled'})
@@ -164,6 +170,29 @@ def validate_state(x):
         try: datetime.fromisoformat(stack['updatedAt'].replace('Z', '+00:00'))
         except ValueError: raise Problem(400, 'Invalid stack date.') from None
         seen.add(stack['id'])
+    lessons = x.get('lessons', [])
+    require(isinstance(lessons, list) and len(lessons) <= 4000)
+    seen = set()
+    for l in lessons:
+        require(isinstance(l, dict) and set(l) == {'id','stackId','name','verseIds','unit','step','mistakes','result','input','tiles','hinted','correct','updatedAt'})
+        identifier(l['stackId']); label(l['name'], 80)
+        require(number(l['unit'], 0, 66) and l['id'] == l['stackId'] + ':' + str(l['unit']) and l['id'] not in seen)
+        require(verse_list(l['verseIds'], 3, True, True) and verse_list(l['mistakes'], 3) and set(l['mistakes']) <= set(l['verseIds']))
+        total = len(l['verseIds']) * 4 + len(l['mistakes'])
+        require(number(l['step'], 0, total) and (l['result'] is None or type(l['result']) is bool) and (l['step'] < total or l['result'] is None))
+        require(isinstance(l['input'], str) and len(l['input']) <= 4000 and isinstance(l['tiles'], list) and len(l['tiles']) <= 12 and all(number(i, 0, 11) for i in l['tiles']) and len(set(l['tiles'])) == len(l['tiles']))
+        require(type(l['hinted']) is bool and number(l['correct'], 0, l['step'] + int(l['result'] is not None)))
+        timestamp(l['updatedAt']); seen.add(l['id'])
+    if 'stackDraft' in x:
+        d = x['stackDraft']
+        require(isinstance(d, dict) and set(d) == {'value','updatedAt'})
+        timestamp(d['updatedAt'])
+        if d['value'] is not None:
+            v = d['value']
+            require(isinstance(v, dict) and set(v) == {'id','name','verseIds','updatedAt'})
+            identifier(v['id'])
+            require(isinstance(v['name'], str) and len(v['name']) <= 80 and verse_list(v['verseIds'], 200, memory=True))
+            timestamp(v['updatedAt'])
     return x
 
 
@@ -187,10 +216,17 @@ def summary_for(state):
 def progress_write(sub, body):
     require(set(body) == {'state', 'revision'} and number(body['revision'], 0, 1000000000))
     state = validate_state(body['state'])
-    raw = json.dumps(state, separators=(',', ':'), ensure_ascii=False).encode()
-    require(len(raw) <= MAX_RAW, 'Progress is too large to sync. Export a backup and contact the app owner.', 413)
     pk, old = 'USER#' + sub, get('USER#' + sub, 'head')
     require(body['revision'] == old.get('revision', 0), 'Progress changed on another device. Please retry.', 409)
+    # Cached older clients omit these fields. Absence must not erase new learning.
+    if old and any(field not in state for field in ('lessons', 'stackDraft')):
+        previous = progress_read(sub)
+        require(previous['revision'] == body['revision'], 'Progress changed on another device. Please retry.', 409)
+        for field in ('lessons', 'stackDraft'):
+            if field not in state and field in previous['state']:
+                state[field] = previous['state'][field]
+    raw = json.dumps(state, separators=(',', ':'), ensure_ascii=False).encode()
+    require(len(raw) <= MAX_RAW, 'Progress is too large to sync. Export a backup and contact the app owner.', 413)
     zipped = gzip.compress(raw, mtime=0)
     require(len(zipped) <= 1_800_000, 'Progress is too large to sync. Export a backup and contact the app owner.', 413)
     chunks = [zipped[i:i+CHUNK] for i in range(0, len(zipped), CHUNK)]

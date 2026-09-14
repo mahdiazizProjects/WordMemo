@@ -59,6 +59,22 @@ class BackendTests(unittest.TestCase):
         self.call('PUT','/progress',{'state':state(),'revision':0},status=409)
         self.call('PUT','/progress',{'state':state(),'revision':1,'userId':B},status=400)
         self.assertEqual(self.call('GET','/progress')['revision'],1)
+    def test_lessons_and_drafts_survive_old_clients_and_reject_corruption(self):
+        value = state()
+        lesson = {'id': S + ':0', 'stackId': S, 'name': 'Hope', 'verseIds': [VERSE], 'unit': 0, 'step': 0, 'mistakes': [], 'result': None, 'input': 'Unfinished', 'tiles': [], 'hinted': False, 'correct': 0, 'updatedAt': '2026-09-14T12:00:00Z'}
+        value['lessons'] = [lesson]
+        value['stackDraft'] = {'value': {'id': S, 'name': '', 'verseIds': [], 'updatedAt': lesson['updatedAt']}, 'updatedAt': lesson['updatedAt']}
+        self.call('PUT', '/progress', {'state': value, 'revision': 0})
+        self.assertEqual(self.call('GET', '/progress')['state'], value)
+        self.call('PUT', '/progress', {'state': state(), 'revision': 1})
+        self.assertEqual(self.call('GET', '/progress')['state'], value)
+        for patch in ({'step': 9}, {'tiles': [0, 0]}, {'extra': 'bad'}, {'verseIds': ['bad']}, {'correct': 9}):
+            bad = copy.deepcopy(value); bad['lessons'][0].update(patch)
+            self.call('PUT', '/progress', {'state': bad, 'revision': 2}, status=400)
+        value['stackDraft']['value'] = None
+        self.call('PUT', '/progress', {'state': value, 'revision': 2})
+        self.assertIsNone(self.call('GET', '/progress')['state']['stackDraft']['value'])
+
     def test_chunk_replacement_retires_only_previous_snapshot(self):
         with patch.object(api,'CHUNK',100):
             self.call('PUT','/progress',{'state':state(),'revision':0})

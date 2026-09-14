@@ -188,6 +188,9 @@ def verify_backend(region, config, table_name):
             http('/progress',auth['IdToken'],expected=403)
         alice,bob = tokens
         state = {'version':1,'onboarded':True,'settings':{'dailyGoal':5,'newPerDay':5,'mode':'mixed','fontScale':1,'reminderTime':'08:00','reminderEnabled':False},'enrolled':['webp-psa-119-11-11'],'favorites':[],'history':[],'progress':{},'goalDays':[],'stacks':[]}
+        stamp = '2026-09-14T12:00:00Z'
+        state['lessons'] = [{'id':'check-stack:0','stackId':'check-stack','name':'Check lesson','verseIds':state['enrolled'],'unit':0,'step':2,'mistakes':[],'result':None,'input':'An unfinished answer','tiles':[],'hinted':False,'correct':2,'updatedAt':stamp}]
+        state['stackDraft'] = {'value':{'id':'check-draft','name':'Draft','verseIds':state['enrolled'],'updatedAt':stamp},'updatedAt':stamp}
         http('/progress',alice,{'state':state,'revision':0},'PUT')
         if http('/progress',alice)['state'] != state or http('/progress',bob)['state'] is not None: raise RuntimeError('Account isolation check failed.')
         http('/progress',alice,{'state':state,'revision':0},'PUT',409)

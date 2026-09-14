@@ -28,6 +28,8 @@ export type Review = { id: string; verseId: string; direction: Direction; day: s
 export type Settings = { dailyGoal: number; newPerDay: number; mode: RecallMode; fontScale: number; reminderTime: string; reminderEnabled: boolean; celebrationsEnabled?: boolean };
 export type VerseStack = { id: string; name: string; verseIds: string[]; updatedAt: string };
 export type AppState = {
+  lessons?: import('./lessons').Lesson[];
+  stackDraft?: import('./lessons').StackDraft;
   version: 1;
   onboarded: boolean;
   settings: Settings;
