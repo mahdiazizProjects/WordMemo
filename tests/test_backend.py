@@ -75,6 +75,29 @@ class BackendTests(unittest.TestCase):
         self.call('PUT', '/progress', {'state': value, 'revision': 2})
         self.assertIsNone(self.call('GET', '/progress')['state']['stackDraft']['value'])
 
+    def test_group_quest_opt_in_caps_duplicate_reviews_and_privacy(self):
+        self.group()
+        week = api.quest_week()
+        value = state()
+        value['history'] = [{'id': week + ':' + f'webp-psa-119-{i}-{i}', 'verseId': f'webp-psa-119-{i}-{i}', 'direction': 'verse', 'day': week, 'correct': False, 'newVerse': True} for i in range(1, 8)]
+        self.call('PUT', '/progress', {'state': value, 'revision': 0})
+        self.assertEqual(self.call('GET', '/groups/'+G)['quest']['count'], 0)
+        body = {'displayName': 'Alice', 'shareProgress': False, 'shareQuest': True}
+        self.call('PUT', '/groups/'+G+'/membership', body)
+        result = self.call('GET', '/groups/'+G, who=B)
+        self.assertEqual(result['quest']['count'], 5)
+        self.assertEqual(result['quest']['participants'], 1)
+        self.assertFalse(any('summary' in m or '_quest' in m for m in result['members']))
+        self.call('PUT', '/progress', {'state': value, 'revision': 1})
+        self.assertEqual(self.call('GET', '/groups/'+G)['quest']['count'], 5)
+        self.call('PUT', '/groups/'+G+'/membership', {'displayName': 'Alice', 'shareProgress': False})
+        self.assertTrue(self.call('GET', '/groups/'+G)['me']['shareQuest'])
+        with patch.object(api, 'quest_week', return_value='2099-01-05'):
+            self.assertEqual(self.call('GET', '/groups/'+G)['quest']['count'], 0)
+        self.call('PUT', '/groups/'+G+'/membership', dict(body, shareQuest=False))
+        self.assertEqual(self.call('GET', '/groups/'+G, who=B)['quest']['count'], 0)
+        self.call('GET', '/groups/'+G, who=C, status=403)
+
     def test_chunk_replacement_retires_only_previous_snapshot(self):
         with patch.object(api,'CHUNK',100):
             self.call('PUT','/progress',{'state':state(),'revision':0})

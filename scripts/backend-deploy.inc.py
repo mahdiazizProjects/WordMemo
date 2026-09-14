@@ -203,6 +203,14 @@ def verify_backend(region, config, table_name):
         http('/groups/join',bob,{'token':invite['token'],'displayName':'Check B'},'POST')
         group = http('/groups/'+gid,bob)
         if any('summary' in m for m in group['members']): raise RuntimeError('Default privacy check failed.')
+        today = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).date().isoformat()
+        state['history'] = [{'id': today+':'+state['enrolled'][0], 'verseId': state['enrolled'][0], 'direction': 'verse', 'day': today, 'correct': False, 'newVerse': True}]
+        http('/progress',alice,{'state':state,'revision':1},'PUT')
+        http('/groups/'+gid+'/membership',alice,{'displayName':'Check A','shareProgress':False,'shareQuest':True},'PUT')
+        quest = http('/groups/'+gid,bob)['quest']
+        if quest['count'] != 1 or quest['participants'] != 1: raise RuntimeError('Group quest contribution check failed.')
+        http('/groups/'+gid+'/membership',alice,{'displayName':'Check A','shareProgress':False,'shareQuest':False},'PUT')
+        if http('/groups/'+gid,bob)['quest']['count'] != 0: raise RuntimeError('Group quest opt-out check failed.')
         http('/groups/'+gid+'/membership',alice,{'displayName':'Check A','shareProgress':True},'PUT')
         if not any('summary' in m for m in http('/groups/'+gid,bob)['members']): raise RuntimeError('Progress sharing check failed.')
         http('/groups/'+gid+'/membership',alice,{'displayName':'Check A','shareProgress':False},'PUT')

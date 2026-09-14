@@ -5,7 +5,7 @@ Group membership is checked on reads and inside every group write transaction.
 No passwords, email addresses, access tokens, invite tokens or verse text are logged.
 """
 import base64
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 import gzip
 import hashlib
 import io
@@ -207,10 +207,21 @@ def progress_read(sub):
     return {'state': json.loads(raw), 'revision': head['revision'], 'updatedAt': head['updatedAt']}
 
 
+def quest_week():
+    today = datetime.now(timezone.utc).date()
+    return (today - timedelta(days=today.weekday())).isoformat()
+
+
 def summary_for(state):
     correct = [h for h in state['history'] if h['correct']]
     xp = len(correct)*10 + (len(state['history'])-len(correct))*3 + len(state.get('goalDays', []))*25
-    return {'verses': len({h['verseId'] for h in correct}), 'practiceDays': len({h['day'] for h in state['history']}), 'xp': xp, 'level': xp//100+1}
+    week = quest_week()
+    counts = {}
+    for h in state['history']:
+        if week <= h['day'] <= (date.fromisoformat(week) + timedelta(days=6)).isoformat():
+            counts.setdefault(h['day'], set()).add(h['id'])
+    weekly = sum(min(5, len(ids)) for ids in counts.values())
+    return {'questWeek': week, 'questCount': weekly, 'verses': len({h['verseId'] for h in correct}), 'practiceDays': len({h['day'] for h in state['history']}), 'xp': xp, 'level': xp//100+1}
 
 
 def progress_write(sub, body):
@@ -288,6 +299,13 @@ def group_read(sub, gid):
     members = []
     for m in query('GROUP#'+gid, 'member#', 55):
         info = {k: m[k] for k in ('userId', 'displayName', 'role', 'shareProgress')}
+        info['shareQuest'] = m.get('shareQuest', False)
+        if info['shareQuest']:
+            summary = get('USER#'+m['userId'], 'summary')
+            if 'questWeek' not in summary:
+                saved = progress_read(m['userId'])['state']
+                if saved: summary = summary_for(saved)
+            info['_quest'] = summary.get('questCount', 0) if summary.get('questWeek') == quest_week() else 0
         if m['shareProgress']:
             s = get('USER#'+m['userId'], 'summary')
             info['summary'] = {k: s.get(k, 0) for k in ('verses', 'practiceDays', 'xp', 'level')}
@@ -297,9 +315,12 @@ def group_read(sub, gid):
     member(sub, gid)
     for info in members:
         current = get('GROUP#'+gid, 'member#'+info['userId'])
+        if not current.get('shareQuest'): info.pop('_quest', None); info['shareQuest'] = False
         if not current.get('shareProgress'): info.pop('summary', None); info['shareProgress'] = False
     members = [m for m in members if get('GROUP#'+gid, 'member#'+m['userId'])]
-    return {'id': gid, 'name': meta['name'], 'ownerId': meta['owner'], 'me': {k: me[k] for k in ('userId', 'displayName', 'role', 'shareProgress')}, 'members': members, 'stacks': stacks, 'roomId': meta.get('roomId')}
+    quest = {'week': quest_week(), 'target': 20, 'count': sum(m.pop('_quest', 0) for m in members), 'participants': sum(bool(m.get('shareQuest')) for m in members)}
+    my_info = next((m for m in members if m['userId'] == sub), {})
+    return {'quest': quest, 'id': gid, 'name': meta['name'], 'ownerId': meta['owner'], 'me': {**{k: me[k] for k in ('userId', 'displayName', 'role', 'shareProgress')}, 'shareQuest': my_info.get('shareQuest', False)}, 'members': members, 'stacks': stacks, 'roomId': meta.get('roomId')}
 
 
 def invite_create(sub, gid):
@@ -331,9 +352,11 @@ def invite_join(sub, body):
 
 def membership_update(sub, gid, body):
     _, me = member(sub, gid)
-    require(set(body) == {'displayName', 'shareProgress'} and type(body['shareProgress']) is bool)
+    require({'displayName', 'shareProgress'} <= set(body) <= {'displayName', 'shareProgress', 'shareQuest'} and type(body['shareProgress']) is bool)
+    require('shareQuest' not in body or type(body['shareQuest']) is bool)
+    quest = body.get('shareQuest', me.get('shareQuest', False))
     me = {k: me[k] for k in ('userId', 'role')}
-    me.update(displayName=label(body['displayName'], 40), shareProgress=body['shareProgress'])
+    me.update(displayName=label(body['displayName'], 40), shareProgress=body['shareProgress'], shareQuest=quest)
     transact([check('GROUP#'+gid, 'meta', 'closed = :no', {':no': False}), put('GROUP#'+gid, 'member#'+sub, me, 'attribute_exists(PK)')])
     return {'ok': True}
 
