@@ -454,6 +454,10 @@ def handler(event, context):
     try:
         method = event.get('requestContext', {}).get('http', {}).get('method', '')
         path = event.get('rawPath', '')
+        if method == 'OPTIONS':
+            # API Gateway supplies the configured origin/method/header allowlist.
+            # Preflight never reads a record or performs an authenticated action.
+            return {'statusCode': 204, 'headers': {'Cache-Control': 'no-store'}, 'body': ''}
         if method == 'GET' and path == '/health': result = {'ok': True, 'version': 2}
         else:
             claims = event.get('requestContext', {}).get('authorizer', {}).get('jwt', {}).get('claims', {})

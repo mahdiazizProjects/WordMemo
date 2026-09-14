@@ -23,6 +23,12 @@ def state():
 
 @mock_aws
 class BackendTests(unittest.TestCase):
+    def test_preflight_is_empty_and_group_data_still_requires_auth(self):
+        response = api.handler({'rawPath': '/groups/' + G, 'requestContext': {'http': {'method': 'OPTIONS'}}}, None)
+        self.assertEqual(response['statusCode'], 204)
+        self.assertEqual(response['body'], '')
+        self.call('GET', '/groups/' + G, claims={}, status=401)
+
     def setUp(self):
         api.TABLE, api.CLIENT = 'WordMemoTest', 'client-123456'
         api.DB = boto3.client('dynamodb', region_name='us-west-2')
