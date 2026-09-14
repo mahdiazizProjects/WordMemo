@@ -8,14 +8,15 @@ import type { AppState, Verse } from './types';
 type Props = {
   state: AppState;
   initialTopic: string;
+  initialScope?: 'all' | 'learning' | 'saved';
   onTopicChange: (id: string) => void;
   addVerses: (verses: Verse[]) => void;
   openVerse: (id: string) => void;
   practiseTopic: (id: string) => void;
 };
-export function BibleScreen({ state, initialTopic, onTopicChange, addVerses, openVerse, practiseTopic }: Props) {
+export function BibleScreen({ state, initialTopic, initialScope = 'all', onTopicChange, addVerses, openVerse, practiseTopic }: Props) {
   const [query, setQuery] = useState(''); const deferredQuery = useDeferredValue(query);
-  const [scope, setScope] = useState('all');
+  const [scope, setScope] = useState(initialScope);
   const topicId = initialTopic === 'all' ? '' : initialTopic;
   const setTopicId = (id: string) => onTopicChange(id || 'all');
   const [bookId, setBookId] = useState(''); const [chapter, setChapter] = useState<number | undefined>();
@@ -42,7 +43,7 @@ export function BibleScreen({ state, initialTopic, onTopicChange, addVerses, ope
   const header = <View style={{ gap: 18, paddingBottom: 18 }}>
     <View style={{ gap: 9 }}><Text style={U.eyebrow}>All 66 books, always with you</Text><Text accessibilityRole="header" style={U.title}>The whole Bible.{'\n'}Close to heart.</Text><Text style={U.small}>{MEMORY_VERSE_COUNT.toLocaleString()} verse cards · 42 topics · WEBP</Text></View>
     <TextInput accessibilityLabel="Search the whole Bible by words, topic, or reference" placeholder="Try perseverance, John 3:16, or a phrase" placeholderTextColor={C.muted} value={query} onChangeText={setQuery} style={U.input} clearButtonMode="while-editing" autoCorrect={false} />
-    <View style={U.wrap}>{[['all','Whole Bible'],['learning','My verses'],['saved','Saved']].map(([id,label]) => <Chip key={id} text={label} selected={scope === id} onPress={() => setScope(id)} />)}</View>
+    <View style={U.wrap}>{[['all','Whole Bible'],['learning','My verses'],['saved','Saved']].map(([id,label]) => <Chip key={id} text={label} selected={scope === id} onPress={() => setScope(id as 'all' | 'learning' | 'saved')} />)}</View>
     <View style={U.wrap}><Button variant="secondary" icon="grid" onPress={() => { setPickerSearch(''); setPicker('topics'); }}>{topic?.name ?? 'All topics'}</Button><Button variant="secondary" icon="book-open" onPress={() => { setPickerSearch(''); setPicker('books'); }}>{book?.name ?? 'All books'}</Button>{(topicId || bookId || query) && <Button variant="quiet" onPress={() => { setQuery(''); setTopicId(''); setBookId(''); setChapter(undefined); setCuratedOnly(false); }}>Clear filters</Button>}</View>
     {book && <View style={{ gap: 10 }}><Text style={U.small}>{book.testament} · {book.section}</Text><ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 8 }}><Chip text="All chapters" selected={!chapter} onPress={() => setChapter(undefined)} />{Array.from({ length: book.chapters }, (_, i) => <Chip key={i} text={`${i + 1}`} selected={chapter === i + 1} onPress={() => setChapter(i + 1)} />)}</ScrollView></View>}
     {topic && <View style={U.card}><Text style={U.sectionTitle}>{topic.name}</Text><Text style={U.body}>{topic.subtitle}</Text><Text style={U.small}>{topic.counts.curated} curated verses · {topic.counts.suggested} keyword suggestions across the Bible</Text><View style={U.between}><Text style={[U.body, { flex: 1 }]}>Curated selections only</Text><Switch value={curatedOnly} onValueChange={setCuratedOnly} accessibilityLabel="Show only curated topic selections" trackColor={{ true: C.green, false: C.line }} /></View><Text style={U.small}>Keyword suggestions identify vocabulary. Read the chapter to understand the speaker and context.</Text><Button variant="secondary" icon="message-circle" onPress={() => practiseTopic(topic.id)}>Recall a verse about this</Button><Button icon="plus" disabled={topicVerses(topic.id, true).every(v => enrolled.has(v.id))} onPress={() => addVerses(topicVerses(topic.id, true))}>{topicVerses(topic.id, true).every(v => enrolled.has(v.id)) ? "Curated verses added to My verses" : "Add curated verses to My verses"}</Button><Text style={U.small}>Your daily practice limit still applies.</Text></View>}
