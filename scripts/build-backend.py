@@ -76,6 +76,8 @@ def build_template():
         props = {'ApiId':ref('HttpApi'),'RouteKey':route,'Target':{'Fn::Join':['/', ['integrations',ref('Integration')]]}, 'AuthorizationType':'NONE' if name == 'Health' else 'JWT'}
         if name != 'Health': props.update(AuthorizerId=ref('Authorizer'), AuthorizationScopes=['aws.cognito.signin.user.admin'])
         resources[name+'Route'] = {'Type':'AWS::ApiGatewayV2::Route','Properties':props}
+    # Preflight must outrank the authenticated ANY group route.
+    resources['GroupPreflightRoute'] = {'Type': 'AWS::ApiGatewayV2::Route', 'Properties': {'ApiId': ref('HttpApi'), 'RouteKey': 'OPTIONS /groups/{proxy+}', 'AuthorizationType': 'NONE'}}
     # The one-time access setup preallocates IDs when no stack-owned pool/API
     # exists. This lets the deployment role target exact resources in IAM.
     # Defaults keep existing installations under CloudFormation management.

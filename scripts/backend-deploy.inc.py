@@ -132,6 +132,28 @@ def api_http(config, path, token=None, body=None, method='GET', expected=200):
     return json.loads(payload or b'{}')
 
 
+def verify_preflight(config):
+    origin = config['appUrl'].rstrip('/')
+    for path, methods in [('/progress', ['GET', 'PUT']), ('/groups', ['GET', 'POST']), ('/groups/preflight-check', ['GET', 'DELETE']), ('/groups/preflight-check/rooms/check', ['GET', 'PUT', 'POST'])]:
+        for method in methods:
+            request = Request(config['apiUrl'] + path, method='OPTIONS', headers={
+                'Origin': origin, 'Access-Control-Request-Method': method,
+                'Access-Control-Request-Headers': 'authorization,content-type'})
+            try:
+                with urlopen(request, timeout=35) as response:
+                    headers = response.headers
+                    if not 200 <= response.status < 300 or headers.get('Access-Control-Allow-Origin') != origin:
+                        raise RuntimeError('Browser preflight did not allow the WordMemo origin.')
+                    if method not in headers.get('Access-Control-Allow-Methods', '').split(','):
+                        raise RuntimeError('Browser preflight did not allow the requested method.')
+                    allowed = {h.strip().lower() for h in headers.get('Access-Control-Allow-Headers', '').split(',')}
+                    if not {'authorization', 'content-type'} <= allowed:
+                        raise RuntimeError('Browser preflight did not allow the required headers.')
+            except HTTPError as error:
+                raise RuntimeError(f'Browser preflight failed with HTTP {error.code}.') from None
+    print('Browser CORS preflight checks passed.', flush=True)
+
+
 def verify_backend(region, config, table_name):
     """Two temporary accounts verify real authorization and storage before publish.
 
@@ -144,6 +166,7 @@ def verify_backend(region, config, table_name):
     print('Checking sign-in, private saving, group permissions, and shared practice...', flush=True)
     for attempt in range(12):
         try:
+            verify_preflight(config)
             api_http(config, '/health'); api_http(config, '/progress', expected=401); break
         except (RuntimeError, URLError):
             if attempt == 11: raise
